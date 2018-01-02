@@ -1,18 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './components/App';
-import { Provider } from 'react-redux';
-import store, { history } from './store';
+
+import { render } from 'react-dom';
+
+// import './index.css';
+import { BrowserRouter as Router } from "react-router-dom";
+import { Provider as ReduxProvider } from "react-redux";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import registerServiceWorker from './registerServiceWorker';
+import App from "./views/layouts/app";
+import configureStore from "./state/store";
 
-ReactDOM.render(
-    <Provider store={store}>
-  <MuiThemeProvider>
-      <App/>
-  </MuiThemeProvider>
-    </Provider>
-  , document.getElementById('root'));
-registerServiceWorker();
+const reduxStore = configureStore(  );
+
+const RootHtml = ( ) => (
+  <ReduxProvider store={ reduxStore }>
+    <MuiThemeProvider>
+      <Router>
+        <App />
+      </Router>
+    </MuiThemeProvider>
+  </ReduxProvider>
+);
+
+render( <RootHtml />, document.getElementById( "react-root" ) );
