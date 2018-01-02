@@ -1,17 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { Link } from "react-router-dom";
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import { uiOperations } from "../../state/ducks/ui";
 
 class SideDrawer extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
-  handleToggle = () => this.setState({open: !this.state.open});
   handleClose = () => this.props.toggleDrawer(this.props.drawerOpen);
 
   render() {
@@ -21,8 +16,9 @@ class SideDrawer extends React.Component {
         docked={false}
         onRequestChange={(open) => this.props.toggleDrawer(this.props.drawerOpen)}
         width={200}>
-        <MenuItem onClick={this.handleClose}>Menu Item</MenuItem>
-        <MenuItem>Menu Item 2</MenuItem>
+        <MenuItem onClick={this.handleClose}  containerElement={<Link to="/corpus" />}>Corpus</MenuItem>
+        <MenuItem onClick={this.handleClose}  containerElement={<Link to="/notebook" />}>Notebook</MenuItem>
+        <MenuItem onClick={this.handleClose}  containerElement={<Link to="/settings" />}>Settings</MenuItem>
       </Drawer>
     );
   }
