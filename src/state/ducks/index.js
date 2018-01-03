@@ -1,4 +1,5 @@
-export { default as notebook } from "./notebook";
+export { default as notebooks } from "./notebook";
+export { default as transcriptions } from "./transcription";
 export { default as search } from "./search";
 export { default as ui } from "./ui";
 

@@ -4,7 +4,6 @@ import React from 'react'
 import { uiOperations } from "../../state/ducks/ui";
 import { searchOperations } from "../../state/ducks/search";
 
-// import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';

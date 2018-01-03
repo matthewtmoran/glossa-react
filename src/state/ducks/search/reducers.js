@@ -4,7 +4,7 @@ import * as types from "./types";
 const searchReducer = (state = '', action ) => {
   switch (action.type) {
     case types.SET: {
-      return action.payload;
+      return action.payload.searchTerm;
     }
     default:
       return state;

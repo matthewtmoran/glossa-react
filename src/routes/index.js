@@ -14,7 +14,7 @@ const routes = [
   {
     path: '/corpus',
     component: Corpus,
-    exact: true,
+    exact: false,
     layout: CoreLayout
   },
   {

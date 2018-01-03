@@ -1,9 +1,9 @@
 import * as types from './types';
 
-const set = ( text ) => ({
+const set = ( searchTerm ) => ({
   type: types.SET,
   payload: {
-    text
+    searchTerm
   }
 });
 
