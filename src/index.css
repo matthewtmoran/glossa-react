@@ -1,5 +1,47 @@
+html {
+  height: 100%;
+}
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  display: flex;
+  height: 100%;
+  flex: 1;
+  flex-direction: column;
+}
+
+#react-root {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+}
+
+.layout, .layout-column, .layout-row {
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.layout-column {
+  flex-direction: column;
+}
+
+.layout-column > .flex {
+  min-height: 0;
+}
+
+
+.flex {
+  flex: 1;
+  box-sizing: border-box;
+}
+
+.CoreLayout {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
 }

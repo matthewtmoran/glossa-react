@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import Transcriptions from '../components/transcription/Transcriptions';
 import TranscriptionDetail from '../components/transcription/TranscriptionDetail';
 import { transcriptionOperations } from "../../state/ducks/transcription";
+import './Corpus.css';
 
 class Corpus extends React.Component {
 
@@ -25,19 +26,22 @@ class Corpus extends React.Component {
     const selectedIndex = filteredTranscriptions.indexOf(selectedTranscription);
 
     return (
-      <div className="Corpus">
-        <h1> Corpus component</h1>
+      <div className="Corpus-Container">
+        <div className="Corpus">
+          <div className="Sidebar">
+            {transcriptions.length < 1
+              ? <div>Create new Transcription...</div>
 
-        {transcriptions.length < 1
-          ? <div>Create new Transcription...</div>
+              : <Transcriptions transcriptions={filteredTranscriptions}
+                                searchTerm={searchTerm}
+                                selectedIndex={selectedIndex}
+                                selectTranscription={this.selectTranscription.bind(this)}/>}
+          </div>
 
-          : <Transcriptions transcriptions={filteredTranscriptions}
-                            searchTerm={searchTerm}
-                            selectedIndex={selectedIndex}
-                            selectTranscription={this.selectTranscription.bind(this)}/>}
-        {selectedIndex > -1
-          ? <TranscriptionDetail selectedTranscription={selectedTranscription}/>
-          : <div></div>}
+          {selectedIndex > -1
+            ? <TranscriptionDetail selectedTranscription={selectedTranscription}/>
+            : <div></div>}
+        </div>
       </div>
     )
   }

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 
 import Navbar from '../components/Navbar';
 import SideDrawer from "../components/SideDrawer";
+// import Grid from 'material-ui/Grid';
 
 export const CoreLayout = ({component: Component, ...rest}) => {
 
@@ -11,10 +12,12 @@ export const CoreLayout = ({component: Component, ...rest}) => {
     <Route
       {...rest}
       render={props => (
-        <div>
+        <div className="CoreLayout">
           <Navbar/>
           <SideDrawer/>
-          <Component/>
+          {/*<Grid container spacing={24}>*/}
+            <Component/>
+          {/*</Grid>*/}
         </div>
       )}
     />
