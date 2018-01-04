@@ -1,23 +1,20 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
-class TranscriptionDetail extends React.Component {
+const TranscriptionDetail = (props) => {
+  const {selectedTranscription} = props;
+  return (
+    selectedTranscription
+      ? (<div>
+      <p>{selectedTranscription.title}</p>
+      <p>{selectedTranscription.desc}</p>
+    </div>)
+      : (<div>Select transcription</div>)
+  )
+};
 
-  render() {
-    const {selectedTranscription} = this.props;
-
-    if (!selectedTranscription) {
-      return (<div>Select transcription</div>)
-    }
-
-    return (
-      <div>
-        <p>{selectedTranscription.title}</p>
-        <p>{selectedTranscription.desc}</p>
-      </div>
-    )
-
-  }
-
-}
+TranscriptionDetail.propTypes = {
+  selectedTranscription: PropTypes.object
+};
 
 export default TranscriptionDetail;

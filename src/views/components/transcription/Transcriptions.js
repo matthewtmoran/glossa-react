@@ -1,6 +1,5 @@
 import React from 'react';
 import {List, ListItem, makeSelectable} from 'material-ui/List';
-import { Link } from "react-router-dom";
 
 let SelectableList = makeSelectable(List);
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import PropTypes from "prop-types";
+
 import Transcriptions from '../components/transcription/Transcriptions';
 import TranscriptionDetail from '../components/transcription/TranscriptionDetail';
 import { transcriptionOperations } from "../../state/ducks/transcription";
-import { Switch, Route } from "react-router-dom";
-
 
 class Corpus extends React.Component {
 
@@ -44,9 +44,13 @@ class Corpus extends React.Component {
 
 }
 
-
-
-
+Corpus.propTypes = {
+  transcriptions: PropTypes.array.isRequired,
+  selectedTranscription: PropTypes.object,
+  notebooks: PropTypes.array,
+  searchTerm: PropTypes.string,
+  select: PropTypes.func
+};
 
 const mapStateToProps = state => {
   return {
@@ -56,7 +60,6 @@ const mapStateToProps = state => {
     searchTerm: state.search.searchTerm,
   }
 };
-
 
 const mapDispatchToProps = {
   select: transcriptionOperations.select,

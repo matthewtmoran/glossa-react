@@ -1,13 +1,15 @@
 import React from 'react'
-import { Link, Route, Switch, ReactDOM } from "react-router-dom";
-import {List, ListItem} from 'material-ui/List';
+import {Route, Switch, ReactDOM} from "react-router-dom";
+import PropTypes from 'prop-types';
+import {ListItem} from 'material-ui/List';
 
 const Transcription = ({transcription, i}) => (
   <ListItem primaryText={transcription.title} value={i}/>
 );
-  {/*<li onClick={() => selectTranscription(transcription)}>*/}
-    {/*{transcription.title}*/}
-  {/*</li>*/}
 
+Transcription.propTypes = {
+  transcription: PropTypes.object.isRequired,
+  i: PropTypes.number.isRequired
+};
 
 export default Transcription
