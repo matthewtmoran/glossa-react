@@ -1,26 +1,31 @@
 import React from 'react';
-import {List, ListItem, makeSelectable} from 'material-ui/List';
-
-let SelectableList = makeSelectable(List);
-
-class Transcriptions extends React.Component {
-  render() {
-
-    const {
-      transcriptions,
-      selectedIndex,
-      selectTranscription
-    } = this.props;
-
-    return (
-      <SelectableList value={selectedIndex} transcriptions={transcriptions} >
-        {transcriptions.map((transcription, i) => (<ListItem value={i} key={transcription.id} primaryText={transcription.title} onClick={() => selectTranscription(transcription)} />))}
-      </SelectableList>
-    )
-  }
-}
+import List, { ListItem, ListItemText } from 'material-ui/List';
+import {withTheme} from 'material-ui/styles';
 
 
 
+const Transcriptions = (props) => {
+  const {
+    theme,
+    selectedIndex,
+    transcriptions,
+    selectTranscription
+  } = props;
 
-export default Transcriptions;
+  return (
+    <List>
+      {transcriptions.map((transcription, index) => (
+        <ListItem button onClick={() => selectTranscription(transcription)} style={{ backgroundColor: index === selectedIndex ? theme.palette.text.divider : 'transparent'}}
+                  key={transcription.id}>
+          <ListItemText primary={transcription.title}/>
+        </ListItem >
+
+      ))}
+    </List>
+  )
+};
+
+
+export default withTheme()(Transcriptions);
+
+// export default Transcriptions;

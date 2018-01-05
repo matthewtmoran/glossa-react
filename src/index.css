@@ -11,12 +11,6 @@ body {
   flex-direction: column;
 }
 
-#react-root {
-  flex-direction: column;
-  display: flex;
-  flex: 1;
-}
-
 .layout, .layout-column, .layout-row {
   box-sizing: border-box;
   display: -webkit-box;

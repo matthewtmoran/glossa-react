@@ -3,22 +3,55 @@ import {connect} from 'react-redux';
 import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
+import { withStyles } from 'material-ui/styles';
+import { MenuItem } from 'material-ui/Menu';
+import List, {ListItem, ListItemText}  from 'material-ui/List';
 import {uiOperations} from "../../state/ducks/ui";
+
+const styles = {
+  list: {
+    width: 250,
+  },
+  listFull: {
+    width: 'auto',
+  },
+};
 
 class SideDrawer extends React.Component {
   render() {
-    const {drawerOpen, toggleDrawer} = this.props;
+    const {classes, drawerOpen, toggleDrawer} = this.props;
+    const sideList = (
+      <div className={classes.list}>
+        <List>
+          <ListItem
+            button
+            component={props => <Link to="/corpus" {...props}/>}>
+
+            <ListItemText primary="Corpus" />
+
+          </ListItem>
+          <ListItem
+            button
+            component={props => <Link to="/notebook" {...props}/>}>
+            <ListItemText primary="Notebook" />
+          </ListItem>
+          <MenuItem onClick={()=>toggleDrawer(drawerOpen)} component={props => <Link to="/corpus"/>}>Corpus</MenuItem>
+        </List>
+      </div>
+    );
     return (
-      <Drawer
-        open={drawerOpen}
-        docked={false}
-        onRequestChange={(open) => toggleDrawer(drawerOpen)}
-        width={200}>
-        <MenuItem onClick={()=>toggleDrawer(drawerOpen)} containerElement={<Link to="/corpus"/>}>Corpus</MenuItem>
-        <MenuItem onClick={()=>toggleDrawer(drawerOpen)} containerElement={<Link to="/notebook"/>}>Notebook</MenuItem>
-        <MenuItem onClick={()=>toggleDrawer(drawerOpen)} containerElement={<Link to="/settings"/>}>Settings</MenuItem>
-      </Drawer>
+
+    <Drawer open={drawerOpen} onClose={() => toggleDrawer(drawerOpen)}>
+      <div
+        tabIndex={0}
+        role="button"
+        onClick={ () => toggleDrawer(drawerOpen)}
+        onKeyDown={() => toggleDrawer(drawerOpen)}
+      >
+        {sideList}
+      </div>
+    </Drawer>
+
     );
   }
 }
@@ -40,5 +73,4 @@ const mapDispatchToProps = {
 
 
 SideDrawer = connect(mapStateToProps, mapDispatchToProps)(SideDrawer);
-
-export default SideDrawer;
+export default withStyles(styles)(SideDrawer);

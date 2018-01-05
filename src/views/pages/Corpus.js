@@ -5,7 +5,42 @@ import PropTypes from "prop-types";
 import Transcriptions from '../components/transcription/Transcriptions';
 import TranscriptionDetail from '../components/transcription/TranscriptionDetail';
 import { transcriptionOperations } from "../../state/ducks/transcription";
-import './Corpus.css';
+import CenteredTabs from '../components/tabs';
+import { withStyles } from 'material-ui/styles';
+
+const styles = {
+  flex: {
+    flex: 1,
+    boxSizing: 'border-box'
+  },
+  layoutColumn: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  layoutRow: {
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  CorpusContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1
+  },
+  Corpus: {
+    flexDirection: 'row',
+    display: 'flex',
+    height: '100%',
+    flex: 1
+  },
+  Sidebar: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100%',
+    width: '20%',
+    minWidth: 200,
+    boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px'
+  }
+};
 
 class Corpus extends React.Component {
 
@@ -21,23 +56,21 @@ class Corpus extends React.Component {
   }
 
   render() {
-    const {transcriptions, searchTerm, selectedTranscription} = this.props;
+    const {classes, transcriptions, searchTerm, selectedTranscription} = this.props;
     let filteredTranscriptions = transcriptions.filter((t, i) => (searchTerm === '' || t.title.toLowerCase().includes(searchTerm.toLowerCase())));
     const selectedIndex = filteredTranscriptions.indexOf(selectedTranscription);
 
     return (
-      <div className="Corpus-Container">
-        <div className="Corpus">
-          <div className="Sidebar">
-            {transcriptions.length < 1
-              ? <div>Create new Transcription...</div>
-
-              : <Transcriptions transcriptions={filteredTranscriptions}
-                                searchTerm={searchTerm}
-                                selectedIndex={selectedIndex}
-                                selectTranscription={this.selectTranscription.bind(this)}/>}
+      <div className={classes.CorpusContainer}>
+        <div className={classes.Corpus}>
+          <div className={classes.Sidebar}>
+            {transcriptions.length > 0 &&
+            <Transcriptions transcriptions={filteredTranscriptions}
+                            searchTerm={searchTerm}
+                            selectedIndex={selectedIndex}
+                            selectTranscription={this.selectTranscription.bind(this)}/>}
           </div>
-
+          {/*<CenteredTabs/>*/}
           {selectedIndex > -1
             ? <TranscriptionDetail selectedTranscription={selectedTranscription}/>
             : <div></div>}
@@ -71,4 +104,4 @@ const mapDispatchToProps = {
 
 Corpus = connect(mapStateToProps, mapDispatchToProps)(Corpus);
 
-export default Corpus;
+export default withStyles(styles)(Corpus);
