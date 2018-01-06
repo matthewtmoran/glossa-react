@@ -53,10 +53,17 @@ class Corpus extends React.Component {
     if (this.props.transcriptions.length > 0 && !this.props.selectedTranscription) {
       this.selectTranscription(this.props.transcriptions[0])
     }
+    this.authTab = 0;
+  }
+
+  tabHandler(e, i) {
+    console.log('tabHandler');
+    this.authTab = i;
   }
 
   render() {
     const {classes, transcriptions, searchTerm, selectedTranscription} = this.props;
+    console.log('selectedTranscription', selectedTranscription);
     let filteredTranscriptions = transcriptions.filter((t, i) => (searchTerm === '' || t.title.toLowerCase().includes(searchTerm.toLowerCase())));
     const selectedIndex = filteredTranscriptions.indexOf(selectedTranscription);
 
@@ -70,10 +77,7 @@ class Corpus extends React.Component {
                             selectedIndex={selectedIndex}
                             selectTranscription={this.selectTranscription.bind(this)}/>}
           </div>
-          {/*<CenteredTabs/>*/}
-          {selectedIndex > -1
-            ? <TranscriptionDetail selectedTranscription={selectedTranscription}/>
-            : <div></div>}
+          <CenteredTabs selectedTranscription={selectedTranscription} authTab={this.authTab} changeTab={this.tabHandler}/>
         </div>
       </div>
     )

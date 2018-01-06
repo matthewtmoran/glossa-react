@@ -23,7 +23,7 @@ export const CoreLayout = ({component: Component, ...rest}) => {
         <div className={classes.CoreLayout}>
           <Navbar/>
           <SideDrawer/>
-          <Component/>
+          <Component {...props}/>
         </div>
       )}
     />
