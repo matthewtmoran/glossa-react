@@ -3,31 +3,34 @@ import * as types from "./types";
 
 const defaultState =[
   {
-    id: '123',
+    id: 1,
     title: 'Transcription',
     desc: 'Description Text',
   },
   {
-    id: '124',
+    id: 2,
     title: 'A Little trans',
     desc: 'Description Text',
   },
   {
-    id: '125',
+    id: 3,
     title: 'Trans the man',
     desc: 'Description Text',
   }
 ];
 
+let transcriptionId = defaultState.length;
+
 const listReducer = (state = defaultState, action) => {
   switch (action.type) {
     case types.CREATE: {
+      transcriptionId = transcriptionId + 1;
       return [
         ...state,
         {
-          id: action.id,
-          title: action.title,
-          desc: action.desc
+          id: transcriptionId,
+          title: action.payload.title,
+          desc: action.payload.desc
         }
       ]
     }

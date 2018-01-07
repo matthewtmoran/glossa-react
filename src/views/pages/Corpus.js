@@ -3,12 +3,14 @@ import { connect } from 'react-redux'
 import PropTypes from "prop-types";
 
 import Transcriptions from '../components/transcription/Transcriptions';
-import TranscriptionDetail from '../components/transcription/TranscriptionDetail';
 import { transcriptionOperations } from "../../state/ducks/transcription";
 import CenteredTabs from '../components/tabs';
-import { withStyles } from 'material-ui/styles';
 
-const styles = {
+import { withStyles } from 'material-ui/styles';
+import Button from 'material-ui/Button';
+import AddIcon from 'material-ui-icons/Add';
+
+const styles = theme => ({
   flex: {
     flex: 1,
     boxSizing: 'border-box'
@@ -34,13 +36,27 @@ const styles = {
   },
   Sidebar: {
     display: 'flex',
+    position: 'relative',
     flexDirection: 'column',
     minHeight: '100%',
     zIndex: 1101,
     width: '20%',
     minWidth: 200,
     boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px'
-  }
+  },
+  button: {
+    margin: theme.spacing.unit,
+    position: 'absolute',
+    bottom: theme.spacing.unit * 2,
+    right: theme.spacing.unit * 2,
+  },
+
+});
+
+let untitledTranscription = {
+  title: 'Untitled',
+  desc: null,
+  id: null
 };
 
 class Corpus extends React.Component {
@@ -62,7 +78,7 @@ class Corpus extends React.Component {
   }
 
   render() {
-    const {classes, transcriptions, searchTerm, selectedTranscription} = this.props;
+    const {classes, transcriptions, searchTerm, selectedTranscription, createTranscription} = this.props;
     let filteredTranscriptions = transcriptions.filter((t, i) => (searchTerm === '' || t.title.toLowerCase().includes(searchTerm.toLowerCase())));
     const selectedIndex = filteredTranscriptions.indexOf(selectedTranscription);
 
@@ -75,6 +91,10 @@ class Corpus extends React.Component {
                             searchTerm={searchTerm}
                             selectedIndex={selectedIndex}
                             selectTranscription={this.selectTranscription.bind(this)}/>}
+
+            <Button onClick={() => createTranscription(untitledTranscription)} fab mini color="primary" aria-label="add" className={classes.button}>
+              <AddIcon />
+            </Button>
           </div>
           <CenteredTabs selectedTranscription={selectedTranscription} authTab={this.authTab} changeTab={this.tabHandler}/>
         </div>
@@ -102,6 +122,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
+  createTranscription: transcriptionOperations.create,
   select: transcriptionOperations.select,
 };
 

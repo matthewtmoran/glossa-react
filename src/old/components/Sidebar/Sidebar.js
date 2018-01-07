@@ -2,6 +2,7 @@ import React from 'react';
 import TranscriptionsContainer from '../../containers/TranscriptionsContainer';
 import NotebookList from '../../components/Notebooks/NotebookList';
 
+
 const Sidebar = ({notebooks, searchTerm}) => {
   return (
     <div className="Sidebar">

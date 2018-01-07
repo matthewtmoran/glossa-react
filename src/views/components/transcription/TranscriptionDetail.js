@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types';
 
 const TranscriptionDetail = (props) => {
-  console.log('props', props);
   const {selectedTranscription} = props;
   return (
     selectedTranscription
