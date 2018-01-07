@@ -1,9 +1,11 @@
 import React from "react";
-import {  Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import routes from "../../routes";
 
 const App = ( ) => (
     <Switch>
+        <Route exact path="/" component={() => <Redirect to="/corpus" />}/>
+        <Route exact path="/corpus" component={() => <Redirect to="/corpus/meta" />}/>
         {routes.map(({layout: Component, ...route}) => (
           <Component key={route.path} path={route.path} component={route.component} exact={route.exact} {...route} />
         ))}

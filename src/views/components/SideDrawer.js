@@ -26,9 +26,7 @@ class SideDrawer extends React.Component {
           <ListItem
             button
             component={props => <Link to="/corpus" {...props}/>}>
-
             <ListItemText primary="Corpus" />
-
           </ListItem>
           <ListItem
             button
@@ -39,16 +37,17 @@ class SideDrawer extends React.Component {
         </List>
       </div>
     );
-    return (
 
+    return (
     <Drawer open={drawerOpen} onClose={() => toggleDrawer(drawerOpen)}>
       <div
         tabIndex={0}
         role="button"
         onClick={ () => toggleDrawer(drawerOpen)}
-        onKeyDown={() => toggleDrawer(drawerOpen)}
-      >
+        onKeyDown={() => toggleDrawer(drawerOpen)}>
+
         {sideList}
+
       </div>
     </Drawer>
 

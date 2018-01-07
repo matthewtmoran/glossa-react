@@ -47,23 +47,6 @@ class Gist extends React.Component {
 }
 
 class FullWidthTabs extends React.Component {
-  state = {
-    value: 0,
-  };
-  //
-  //
-  //
-  // handleChange = (event, value) => {
-  //   console.log('value', value);
-  //   this.setState({ value });
-  // };
-  //
-  // handleChangeIndex = index => {
-  //   console.log('index', index);
-  //   this.setState({ value: index });
-  //   this.props.changeTab(index)
-  // };
-
   render() {
     const {history, match, classes, theme, selectedTranscription} = this.props;
     const tabId = 'myTabId';
@@ -74,18 +57,13 @@ class FullWidthTabs extends React.Component {
         <AppBar position="static" color="default">
           <Tabs value={tabId}>
             <Tab
-              value={getTabValue('/corpus/meta')}
-              label="tab1"
+              value={getTabValue(`${match.url}/meta`)}
+              label="Meta"
               onClick={() => history.push(`${match.url}/meta`)}/>
             <Tab
-              value={getTabValue('/corpus/baseline')}
-              label="tab2"
+              value={getTabValue(`${match.url}/baseline`)}
+              label="Baseline"
               onClick={() => history.push(`${match.url}/baseline`)}
-            />
-            <Tab
-              value={getTabValue('/corpus/gist')}
-              label="tab3"
-              onClick={() => history.push(`${match.url}/gist`)}
             />
           </Tabs>
         </AppBar>
@@ -95,13 +73,8 @@ class FullWidthTabs extends React.Component {
         <TabContainer dir={theme.direction}>
           <Route path={`${match.url}/baseline`} component={Baseline}/>
         </TabContainer>
-        <TabContainer dir={theme.direction}>
-          <Route path={`${match.url}/gist`} component={Gist}/>
-        </TabContainer>
       </div>
     )
-
-
   }
 }
 
