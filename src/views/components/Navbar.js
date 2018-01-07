@@ -5,38 +5,47 @@ import PropTypes from 'prop-types';
 import {uiOperations} from "../../state/ducks/ui";
 import {searchOperations} from "../../state/ducks/search";
 
+import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
-// import SvgIcon from 'material-ui/SvgIcon';
 import TextField from 'material-ui/TextField';
 import MenuIcon from 'material-ui-icons/Menu';
 import SearchIcon from 'material-ui-icons/Search';
+import { withStyles } from 'material-ui/styles';
+
+const styles = theme => ({
+  navBar: {
+    zIndex: 9999,
+  },
+});
 
 let NavBar = (props) => {
-  const {toggleDrawer, drawerOpen, searchFilter} = props;
+  const {classes, toggleDrawer, drawerOpen, searchFilter} = props;
   return (
-    <Toolbar>
-      <IconButton>
-        <MenuIcon
-          // color={red}
-          // hoverColor={green}
-          onClick={() => {
-            toggleDrawer(drawerOpen);
-          }}/>
-      </IconButton>
-      <IconButton>
-        <SearchIcon/>
-      </IconButton>
-      <TextField
-        placeholder="Search..."
-        fullWidth={true}
-        onChange={(e) => {
-          e.preventDefault();
-          searchFilter(e.target.value);
-        }}
-      />
+    <AppBar position="static" color="default">
+      <Toolbar className={classes.navBar}>
+        <IconButton>
+          <MenuIcon
+            // color={red}
+            // hoverColor={green}
+            onClick={() => {
+              toggleDrawer(drawerOpen);
+            }}/>
+        </IconButton>
+        <IconButton>
+          <SearchIcon/>
+        </IconButton>
+        <TextField
+          placeholder="Search..."
+          fullWidth={true}
+          onChange={(e) => {
+            e.preventDefault();
+            searchFilter(e.target.value);
+          }}
+        />
 
-    </Toolbar>
+      </Toolbar>
+    </AppBar>
   )
 };
 
@@ -59,4 +68,4 @@ const mapDispatchToProps = {
 
 NavBar = connect(mapStateToProps, mapDispatchToProps)(NavBar);
 
-export default NavBar;
+export default withStyles(styles)(NavBar);

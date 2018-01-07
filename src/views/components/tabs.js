@@ -26,7 +26,8 @@ const styles = theme => ({
     flexDirection: 'column',
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
-    flex: 1
+    flex: 1,
+    zIndex:1
   },
 });
 
@@ -77,7 +78,6 @@ class FullWidthTabs extends React.Component {
     )
   }
 }
-
 
 FullWidthTabs.propTypes = {
   classes: PropTypes.object.isRequired,

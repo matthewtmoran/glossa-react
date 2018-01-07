@@ -36,6 +36,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100%',
+    zIndex: 1101,
     width: '20%',
     minWidth: 200,
     boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px'
@@ -57,13 +58,11 @@ class Corpus extends React.Component {
   }
 
   tabHandler(e, i) {
-    console.log('tabHandler');
     this.authTab = i;
   }
 
   render() {
     const {classes, transcriptions, searchTerm, selectedTranscription} = this.props;
-    console.log('selectedTranscription', selectedTranscription);
     let filteredTranscriptions = transcriptions.filter((t, i) => (searchTerm === '' || t.title.toLowerCase().includes(searchTerm.toLowerCase())));
     const selectedIndex = filteredTranscriptions.indexOf(selectedTranscription);
 
