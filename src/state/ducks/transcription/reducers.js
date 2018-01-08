@@ -35,7 +35,15 @@ const listReducer = (state = defaultState, action) => {
       ]
     }
     case types.UPDATE: {
-      return []
+      return state.map((item) => {
+        if (item.id !== action.payload.id) {
+          return item;
+        }
+        return {
+          ...item,
+          ...action.payload
+        };
+      })
     }
     case types.REMOVE: {
       return []

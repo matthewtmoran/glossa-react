@@ -4,8 +4,8 @@ import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
-import TranscriptionDetail from '../components/transcription/TranscriptionDetail';
-import Baseline from '../components/Baseline';
+import Meta from './Meta';
+import Baseline from './Baseline';
 import { Link, Route, matchPath, HashRouter, Switch, withRouter } from "react-router-dom";
 
 function TabContainer({ children, dir }) {
@@ -49,7 +49,7 @@ class Gist extends React.Component {
 
 class FullWidthTabs extends React.Component {
   render() {
-    const {history, match, classes, theme, selectedTranscription} = this.props;
+    const {history, match, classes, theme, selectedTranscription, update} = this.props;
     const tabId = 'myTabId';
     const getTabValue = mountTabValueFactory(history.location, tabId);
 
@@ -69,7 +69,7 @@ class FullWidthTabs extends React.Component {
           </Tabs>
         </AppBar>
         <TabContainer dir={theme.direction}>
-          <Route path={`${match.url}/meta`} render={(props) => <TranscriptionDetail selectedTranscription={selectedTranscription}/>}/>
+          <Route path={`${match.url}/meta`} render={(props) => <Meta selectedTranscription={selectedTranscription} update={update}/>}/>
         </TabContainer>
         <TabContainer dir={theme.direction}>
           <Route path={`${match.url}/baseline`} component={Baseline}/>
@@ -82,6 +82,7 @@ class FullWidthTabs extends React.Component {
 FullWidthTabs.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
+  update: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(withRouter(FullWidthTabs));

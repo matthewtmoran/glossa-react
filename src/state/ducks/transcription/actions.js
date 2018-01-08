@@ -10,14 +10,14 @@ const create = (transcription) => ({
 const remove = (transcription) => ({
   type: types.REMOVE,
   payload: {
-    transcription
+    ...transcription
   }
 });
 
 const update = (transcription) => ({
   type: types.UPDATE,
   payload: {
-    transcription
+    ...transcription
   }
 });
 

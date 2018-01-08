@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux'
 import PropTypes from "prop-types";
 
-import Transcriptions from '../components/transcription/Transcriptions';
-import { transcriptionOperations } from "../../state/ducks/transcription";
-import CenteredTabs from '../components/tabs';
+import Transcriptions from '../../components/transcription/Transcriptions';
+import { transcriptionOperations } from "../../../state/ducks/transcription/index";
+import CenteredTabs from './tabs';
 
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
@@ -78,7 +78,7 @@ class Corpus extends React.Component {
   }
 
   render() {
-    const {classes, transcriptions, searchTerm, selectedTranscription, createTranscription} = this.props;
+    const {classes, transcriptions, searchTerm, selectedTranscription, createTranscription, update} = this.props;
     let filteredTranscriptions = transcriptions.filter((t, i) => (searchTerm === '' || t.title.toLowerCase().includes(searchTerm.toLowerCase())));
     const selectedIndex = filteredTranscriptions.indexOf(selectedTranscription);
 
@@ -96,7 +96,7 @@ class Corpus extends React.Component {
               <AddIcon />
             </Button>
           </div>
-          <CenteredTabs selectedTranscription={selectedTranscription} authTab={this.authTab} changeTab={this.tabHandler}/>
+          <CenteredTabs selectedTranscription={selectedTranscription} authTab={this.authTab} update={update} changeTab={this.tabHandler}/>
         </div>
       </div>
     )
@@ -109,7 +109,8 @@ Corpus.propTypes = {
   selectedTranscription: PropTypes.object,
   notebooks: PropTypes.array,
   searchTerm: PropTypes.string,
-  select: PropTypes.func
+  select: PropTypes.func,
+  update: PropTypes.func
 };
 
 const mapStateToProps = state => {
@@ -124,6 +125,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   createTranscription: transcriptionOperations.create,
   select: transcriptionOperations.select,
+  update: transcriptionOperations.update,
 };
 
 Corpus = connect(mapStateToProps, mapDispatchToProps)(Corpus);
