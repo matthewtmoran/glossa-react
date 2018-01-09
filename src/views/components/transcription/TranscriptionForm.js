@@ -1,10 +1,11 @@
 import React from 'react';
+import TextField from 'material-ui/TextField';
 
 class TranscriptionForm extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
-    this.props.transcription[e.target.name] = this.refs[e.target.name].value;
+    this.props.transcription[e.target.name] = e.target.value;
     this.props.update(this.props.transcription);
   }
 
@@ -12,11 +13,19 @@ class TranscriptionForm extends React.Component {
     const {transcription} = this.props;
     return (
       <div>
-        <h5>Transcription form</h5>
-        <label>Name</label>
-        <input value={transcription.title} name="title" ref="title" placeholder="title" onChange={this.handleChange.bind(this)}/>
-        <label>Description</label>
-        <textarea value={transcription.desc} name="desc" ref="desc" onChange={this.handleChange.bind(this)}/>
+        <TextField
+          value={transcription.title}
+          name="title"
+          fullWidth={true}
+          onChange={this.handleChange.bind(this)}
+        />
+        <TextField
+          value={transcription.desc || ""}
+          name="desc"
+          placeholder="Description..."
+          fullWidth={true}
+          onChange={this.handleChange.bind(this)}
+        />
       </div>
     )
   }

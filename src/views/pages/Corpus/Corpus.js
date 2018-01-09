@@ -80,7 +80,14 @@ class Corpus extends React.Component {
   render() {
     const {classes, transcriptions, searchTerm, selectedTranscription, createTranscription, update} = this.props;
     let filteredTranscriptions = transcriptions.filter((t, i) => (searchTerm === '' || t.title.toLowerCase().includes(searchTerm.toLowerCase())));
-    const selectedIndex = filteredTranscriptions.indexOf(selectedTranscription);
+
+    if (selectedTranscription) {
+      filteredTranscriptions.forEach((t, i) => {
+          if (t.id === selectedTranscription.id) {
+            this.selectedIndex = i;
+          }
+        });
+    }
 
     return (
       <div className={classes.CorpusContainer}>
@@ -89,7 +96,7 @@ class Corpus extends React.Component {
             {transcriptions.length > 0 &&
             <Transcriptions transcriptions={filteredTranscriptions}
                             searchTerm={searchTerm}
-                            selectedIndex={selectedIndex}
+                            selectedIndex={this.selectedIndex}
                             selectTranscription={this.selectTranscription.bind(this)}/>}
 
             <Button onClick={() => createTranscription(untitledTranscription)} fab mini color="primary" aria-label="add" className={classes.button}>

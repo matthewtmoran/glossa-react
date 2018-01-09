@@ -12,6 +12,8 @@ const Transcriptions = (props) => {
     selectTranscription
   } = props;
 
+  console.log('selectedIndex', selectedIndex);
+
   return (
     <List>
       {transcriptions.map((transcription, index) => (

@@ -6,7 +6,7 @@ import Tabs, { Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
 import Meta from './Meta';
 import Baseline from './Baseline';
-import { Link, Route, matchPath, HashRouter, Switch, withRouter } from "react-router-dom";
+import { Route, matchPath, withRouter } from "react-router-dom";
 
 function TabContainer({ children, dir }) {
   return (
@@ -36,16 +36,6 @@ const mountTabValueFactory = (location, tabId) => {
     return !!matchPath(location.pathname, { path: route, exact: true }) ? tabId : Infinity;
   }
 };
-
-class Gist extends React.Component {
-  render () {
-    return (
-      <div>
-        <h1>Gist</h1>
-      </div>
-    )
-  }
-}
 
 class FullWidthTabs extends React.Component {
   render() {
