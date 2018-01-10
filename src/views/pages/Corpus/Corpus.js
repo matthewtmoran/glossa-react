@@ -124,7 +124,7 @@ const mapStateToProps = state => {
   return {
     transcriptions: state.transcriptions.list,
     selectedTranscription: state.transcriptions.details,
-    notebooks: state.notebooks,
+    notebooks: state.notebooks.list,
     searchTerm: state.search.searchTerm,
   }
 };
