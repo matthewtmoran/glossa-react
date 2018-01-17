@@ -4,7 +4,23 @@ import * as types from "./types";
 const drawerReducer = (state = false, action ) => {
   switch (action.type) {
     case types.TOGGLE: {
-      return !action.payload.drawerOpen;
+      return {
+        ...state,
+        drawerOpen: !action.payload.drawerOpen
+      }
+    }
+    default:
+      return state;
+  }
+};
+
+const modalReducer = (state = false, action) => {
+  switch(action.type) {
+    case types.MODAL: {
+      return {
+        ...state,
+        modalOpen: !action.payload.modalOpen
+      }
     }
     default:
       return state;
@@ -13,7 +29,8 @@ const drawerReducer = (state = false, action ) => {
 
 
 const reducer = combineReducers({
-  drawerOpen: drawerReducer
+  drawerOpen: drawerReducer,
+  modalOpen: modalReducer
 });
 
 

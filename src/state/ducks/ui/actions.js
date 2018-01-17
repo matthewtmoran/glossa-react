@@ -7,6 +7,14 @@ const toggleDrawer = ( drawerOpen ) => ({
   }
 });
 
+const toggleModal = ( modalOpen ) => ({
+  type: types.MODAL,
+  payload: {
+    modalOpen
+  }
+});
+
 export {
   toggleDrawer,
+  toggleModal
 }

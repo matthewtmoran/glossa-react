@@ -1,7 +1,8 @@
-import { create, remove, update} from "./actions";
+import { create, remove, update, select} from "./actions";
 
 export {
   create,
   remove,
   update,
+  select
 };

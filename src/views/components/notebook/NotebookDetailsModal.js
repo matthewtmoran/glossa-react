@@ -1,7 +1,10 @@
 import React from 'react';
+
+import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import Modal from 'material-ui/Modal';
 import Button from 'material-ui/Button';
+import CloseIcon from 'material-ui-icons/Close';
 
 function rand() {
   return Math.floor(Math.random() * 20) - 10;
@@ -31,18 +34,17 @@ class NotebookDetailsModal extends React.Component {
   };
 
   handleOpen = () => {
-    this.setState({ open: true });
+    this.setState({open: true});
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({open: false});
   };
 
   render() {
     const {notebook} = this.props;
     return (
       <div>
-        <Button onClick={this.handleOpen}>Open Modal</Button>
         <Modal
           disableBackdropClick={true}
           aria-labelledby="simple-modal-title"
@@ -57,8 +59,14 @@ class NotebookDetailsModal extends React.Component {
             <Typography type="subheading" id="simple-modal-description">
               {notebook.desc}
             </Typography>
+
+
+            <IconButton onClick={this.handleClose}>
+              <CloseIcon/>
+            </IconButton>
           </div>
         </Modal>
+
       </div>
     );
   }

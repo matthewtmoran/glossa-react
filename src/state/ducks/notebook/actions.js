@@ -21,8 +21,17 @@ const update = ( notebook ) => ({
   }
 });
 
+
+const select = (notebook) => ({
+  type: types.SELECT,
+  payload: {
+    notebook
+  }
+});
+
 export {
   create,
   remove,
-  update
+  update,
+  select
 }

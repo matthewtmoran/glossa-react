@@ -82,6 +82,17 @@ const listReducer = (state = defaultState, action) => {
   }
 };
 
+
+const detailsReducer = (state = null , action) => {
+  switch (action.type) {
+    case types.SELECT: {
+      return action.payload.notebook
+    }
+    default:
+      return state;
+  }
+};
+
 //
 // const notebookReducer = ( state = [], action) => {
 //   switch ( action.type ) {
@@ -110,6 +121,7 @@ const listReducer = (state = defaultState, action) => {
 
 const reducer = combineReducers( {
   list: listReducer,
+  details: detailsReducer
 });
 
 export default reducer
