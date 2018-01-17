@@ -2,21 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
-import classnames from 'classnames';
 import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
-import Collapse from 'material-ui/transitions/Collapse';
 import Avatar from 'material-ui/Avatar';
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import red from 'material-ui/colors/red';
-import FavoriteIcon from 'material-ui-icons/Favorite';
-import ShareIcon from 'material-ui-icons/Share';
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import DeleteIcon from 'material-ui-icons/Delete';
 import OpenInNewIcon from 'material-ui-icons/OpenInNew';
-
-import NotebookDetailsModal from './NotebookDetailsModal';
 
 const styles = theme => ({
   card: {
@@ -44,12 +37,7 @@ const styles = theme => ({
 
 class NotebookCard extends React.Component {
   handleOpen(event) {
-
-    console.log('this.props.notebook', this.props.notebook);
     this.props.show(this.props.notebook);
-    // this.props.toggleModal();
-    // this.props.select(this.props.notebook)
-
   }
 
   render() {
@@ -93,7 +81,6 @@ class NotebookCard extends React.Component {
               <OpenInNewIcon aria-label="Open"/>
             </IconButton>
 
-            {/*<NotebookDetailsModal notebook={notebook}/>*/}
           </CardActions>
         </Card>
       </div>
@@ -104,7 +91,6 @@ class NotebookCard extends React.Component {
 NotebookCard.propTypes = {
   notebook: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  toggleModal: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(NotebookCard);

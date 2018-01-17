@@ -20,16 +20,14 @@ const styles = theme => ({
 });
 
 let NavBar = (props) => {
-  const {classes, toggleDrawer, drawerOpen, searchFilter} = props;
+  const {classes, toggleDrawer, isOpen, searchFilter} = props;
   return (
     <AppBar position="static" color="default">
       <Toolbar className={classes.navBar}>
         <IconButton>
           <MenuIcon
-            // color={red}
-            // hoverColor={green}
             onClick={() => {
-              toggleDrawer(drawerOpen);
+              toggleDrawer(isOpen);
             }}/>
         </IconButton>
         <IconButton>
@@ -51,13 +49,13 @@ let NavBar = (props) => {
 
 NavBar.propTypes = {
   toggleDrawer: PropTypes.func.isRequired,
-  drawerOpen: PropTypes.bool.isRequired,
+  isOpen: PropTypes.bool.isRequired,
   searchFilter: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    drawerOpen: state.ui.drawerOpen,
+    isOpen: state.ui.drawer.isOpen,
   }
 };
 

@@ -19,7 +19,7 @@ const styles = {
 
 class SideDrawer extends React.Component {
   render() {
-    const {classes, drawerOpen, toggleDrawer} = this.props;
+    const {classes, isOpen, toggleDrawer} = this.props;
     const sideList = (
       <div className={classes.list}>
         <List>
@@ -33,18 +33,18 @@ class SideDrawer extends React.Component {
             component={props => <Link to="/notebook" {...props}/>}>
             <ListItemText primary="Notebook" />
           </ListItem>
-          <MenuItem onClick={()=>toggleDrawer(drawerOpen)} component={props => <Link to="/corpus"/>}>Corpus</MenuItem>
+          <MenuItem onClick={()=>toggleDrawer(isOpen)} component={props => <Link to="/corpus"/>}>Corpus</MenuItem>
         </List>
       </div>
     );
 
     return (
-    <Drawer open={drawerOpen} onClose={() => toggleDrawer(drawerOpen)}>
+    <Drawer open={isOpen} onClose={() => toggleDrawer(isOpen)}>
       <div
         tabIndex={0}
         role="button"
-        onClick={ () => toggleDrawer(drawerOpen)}
-        onKeyDown={() => toggleDrawer(drawerOpen)}>
+        onClick={ () => toggleDrawer(isOpen)}
+        onKeyDown={() => toggleDrawer(isOpen)}>
 
         {sideList}
 
@@ -56,13 +56,13 @@ class SideDrawer extends React.Component {
 }
 
 SideDrawer.propTypes = {
-  drawerOpen: PropTypes.bool.isRequired,
+  isOpen: PropTypes.bool.isRequired,
   toggleDrawer: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    drawerOpen: state.ui.drawerOpen,
+    isOpen: state.ui.drawer.isOpen,
   }
 };
 

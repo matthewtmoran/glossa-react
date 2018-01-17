@@ -1,8 +1,7 @@
-import { toggleDrawer, toggleModal, hideModal, showModal } from "./actions";
+import { toggleDrawer, hideModal, showModal } from "./actions";
 
 export {
   toggleDrawer,
-  toggleModal,
   hideModal,
   showModal,
 };

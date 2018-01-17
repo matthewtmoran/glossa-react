@@ -1,20 +1,11 @@
 import * as types from './types';
 
-const toggleDrawer = ( drawerOpen ) => ({
+const toggleDrawer = ( isOpen ) => ({
   type: types.TOGGLE,
   payload: {
-    drawerOpen
+    isOpen
   }
 });
-
-const toggleModal = ( notebook ) => ({
-  type: types.SHOW_MODAL,
-  modalType: types.MODAL_TYPE,
-  payload: {
-    ...notebook
-  }
-});
-
 
 const showModal = ( notebook ) => ({
   type: types.SHOW_MODAL,
@@ -24,17 +15,14 @@ const showModal = ( notebook ) => ({
   }
 });
 
-const hideModal = ( notebook ) => ({
+const hideModal = ( ) => ({
   type: types.HIDE_MODAL,
   modalType: types.MODAL_TYPE,
-  payload: {
-
-  }
+  payload: null
 });
 
 export {
   toggleDrawer,
-  toggleModal,
   showModal,
   hideModal
 }
