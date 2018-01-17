@@ -43,9 +43,17 @@ const styles = theme => ({
 });
 
 class NotebookCard extends React.Component {
+  handleOpen(event) {
+
+    console.log('this.props.notebook', this.props.notebook);
+    this.props.show(this.props.notebook);
+    // this.props.toggleModal();
+    // this.props.select(this.props.notebook)
+
+  }
+
   render() {
     const { classes, notebook } = this.props;
-
     return (
       <div>
         <Card className={classes.card}>
@@ -81,11 +89,11 @@ class NotebookCard extends React.Component {
 
             <div className={classes.flexGrow} />
 
-            <IconButton>
+            <IconButton onClick={this.handleOpen.bind(this)}>
               <OpenInNewIcon aria-label="Open"/>
             </IconButton>
 
-            <NotebookDetailsModal notebook={notebook}/>
+            {/*<NotebookDetailsModal notebook={notebook}/>*/}
           </CardActions>
         </Card>
       </div>
@@ -96,6 +104,7 @@ class NotebookCard extends React.Component {
 NotebookCard.propTypes = {
   notebook: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  toggleModal: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(NotebookCard);

@@ -9,7 +9,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import purple from 'material-ui/colors/purple';
 import green from 'material-ui/colors/green';
 
-import App from "./views/layouts/app";
+import App from "./views/app";
 import configureStore from "./state/store";
 import Reboot from 'material-ui/Reboot';
 

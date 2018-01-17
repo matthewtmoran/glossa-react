@@ -64,14 +64,14 @@ const styles = theme => ({
  * ];
  */
 function AdvancedGridList(props) {
-  const {classes, notebooks} = props;
+  const {classes, notebooks, toggleModal, select, show} = props;
 
   return (
     <div className={classes.root}>
       <Grid className={classes.subroot} container spacing={24}>
         {notebooks.map((notebook, index ) => (
           <Grid key={notebook.id} item xs={12} sm={6} md={3}>
-            <NotebookCard notebook={notebook}/>
+            <NotebookCard notebook={notebook} toggleModal={toggleModal} select={select} show={show}/>
           </Grid>
         ))}
       </Grid>

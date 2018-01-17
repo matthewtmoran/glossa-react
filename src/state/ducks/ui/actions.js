@@ -7,14 +7,34 @@ const toggleDrawer = ( drawerOpen ) => ({
   }
 });
 
-const toggleModal = ( modalOpen ) => ({
-  type: types.MODAL,
+const toggleModal = ( notebook ) => ({
+  type: types.SHOW_MODAL,
+  modalType: types.MODAL_TYPE,
   payload: {
-    modalOpen
+    ...notebook
+  }
+});
+
+
+const showModal = ( notebook ) => ({
+  type: types.SHOW_MODAL,
+  modalType: types.MODAL_TYPE,
+  payload: {
+    ...notebook
+  }
+});
+
+const hideModal = ( notebook ) => ({
+  type: types.HIDE_MODAL,
+  modalType: types.MODAL_TYPE,
+  payload: {
+
   }
 });
 
 export {
   toggleDrawer,
-  toggleModal
+  toggleModal,
+  showModal,
+  hideModal
 }

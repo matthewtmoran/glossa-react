@@ -4,8 +4,8 @@ import { withStyles } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import Tabs, { Tab } from 'material-ui/Tabs';
 import Typography from 'material-ui/Typography';
-import Meta from './Meta';
-import Baseline from './Baseline';
+import Meta from '../pages/Corpus/Meta';
+import Baseline from '../pages/Corpus/Baseline';
 import { Route, matchPath, withRouter } from "react-router-dom";
 
 function TabContainer({ children, dir }) {

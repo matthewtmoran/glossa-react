@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import Transcriptions from '../../components/transcription/Transcriptions';
 import { transcriptionOperations } from "../../../state/ducks/transcription/index";
-import CenteredTabs from './tabs';
+import CenteredTabs from '../../components/tabs';
 
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';

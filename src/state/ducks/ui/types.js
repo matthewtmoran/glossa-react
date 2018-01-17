@@ -1,7 +1,11 @@
 const TOGGLE = "ui/TOGGLE_DRAWER";
-const MODAL = "ui/TOGGLE_MODAL";
+const SHOW_MODAL = "ui/SHOW_MODAL";
+const HIDE_MODAL = "ui/HIDE_MODAL";
+const MODAL_TYPE = "ui/SHOW_MODAL/NOTEBOOK";
 
 export {
   TOGGLE,
-  MODAL
+  SHOW_MODAL,
+  HIDE_MODAL,
+  MODAL_TYPE
 };

@@ -4,7 +4,6 @@ import TranscriptionFrom from '../../components/transcription/TranscriptionForm'
 
 const Meta = (props) => {
   const {selectedTranscription, update} = props;
-
   return (
     selectedTranscription && <TranscriptionFrom transcription={selectedTranscription} update={update}/>
   )
