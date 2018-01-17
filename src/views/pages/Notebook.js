@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {notebookOperations} from '../../state/ducks/notebook/index';
 import {uiOperations} from '../../state/ducks/ui/index';
 import Notebooks from '../components/notebook/NotebookList';
-import ModalRoot from '../components/notebook/modal';
+import ModalRoot from '../components/ModalRoot';
 
 class Notebook extends React.Component {
   render() {
