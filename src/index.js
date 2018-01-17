@@ -15,10 +15,7 @@ import Reboot from 'material-ui/Reboot';
 
 
 const theme = createMuiTheme({
-  palette: {
-    primary: purple,
-    secondary: green,
-  },
+  palette: {},
 });
 
 const reduxStore = configureStore(  );
