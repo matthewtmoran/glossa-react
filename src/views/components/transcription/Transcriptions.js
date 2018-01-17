@@ -2,8 +2,6 @@ import React from 'react';
 import List, { ListItem, ListItemText } from 'material-ui/List';
 import {withTheme} from 'material-ui/styles';
 
-
-
 const Transcriptions = (props) => {
   const {
     theme,

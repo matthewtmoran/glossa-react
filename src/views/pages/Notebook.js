@@ -7,11 +7,11 @@ import ModalRoot from '../components/ModalRoot';
 
 class Notebook extends React.Component {
   render() {
-    const {notebooks, toggleModal, select, show} = this.props;
+    const {notebooks, show} = this.props;
     return (
       <div className="Notebook">
         <h1> Notebook component</h1>
-        <Notebooks notebooks={notebooks} toggleModal={toggleModal} select={select} show={show}/>
+        <Notebooks notebooks={notebooks} show={show}/>
         <ModalRoot/>
       </div>
     )
@@ -21,16 +21,12 @@ class Notebook extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    selectedNotebook: state.notebooks.details,
     notebooks: state.notebooks.list,
     searchTerm: state.search.searchTerm,
-    modalOpen: state.ui.modalOpen,
   }
 };
 
 const mapDispatchToProps = {
-  toggleModal: uiOperations.toggleModal,
-  select: notebookOperations.select,
   create: notebookOperations.create,
   show: uiOperations.showModal
 };
