@@ -21,7 +21,7 @@ const defaultState =[
 
 let transcriptionId = defaultState.length;
 
-const listReducer = (state = defaultState, action) => {
+const listReducer = (state = [], action) => {
   switch (action.type) {
     case types.CREATE: {
       transcriptionId = transcriptionId + 1;
@@ -48,10 +48,42 @@ const listReducer = (state = defaultState, action) => {
     case types.REMOVE: {
       return []
     }
+    case types.HYDRATE: {
+      console.log('hydrating... ');
+      return action.payload
+
+    }
     default:
       return state;
   }
 };
+
+const defaultFetchState = {
+  isFethcing: false,
+  didInvalidate: false,
+};
+
+const fetchReducer = (state = defaultFetchState, action) => {
+  switch(action.type) {
+    case types.FETCH_LIST: {
+      console.log('fetching list...');
+      return {
+        ...state,
+        isFetching: action.payload
+      }
+    }
+    case types.FETCH_LIST_COMPLETED: {
+      console.log('fetching list completed');
+      return {
+        ...state,
+        isFetching: action.payload
+      }
+    }
+    default:
+      return state;
+  }
+};
+
 
 const detailsReducer = (state = null , action) => {
   switch (action.type) {
@@ -66,6 +98,7 @@ const detailsReducer = (state = null , action) => {
 const reducer = combineReducers( {
   list: listReducer,
   details: detailsReducer,
+  request: fetchReducer
 });
 
 export default reducer;

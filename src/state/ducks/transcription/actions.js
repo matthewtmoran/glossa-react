@@ -28,9 +28,36 @@ const select = (transcription) => ({
   }
 });
 
+const requestList = () => ({
+  type: types.FETCH_LIST,
+  payload: true
+});
+
+
+const receiveList = () => ({
+  type: types.FETCH_LIST_COMPLETED,
+  payload: false
+});
+
+const failedList = () => ({
+  type: types.FETCH_LIST_FAILED,
+  payload: true
+});
+
+const hydrateList = (list) =>  ({
+  type: types.HYDRATE,
+  payload: list
+});
+
+
+
 export {
   create,
   remove,
   update,
-  select
+  select,
+  requestList,
+  receiveList,
+  failedList,
+  hydrateList
 }

@@ -1,12 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux'
 import PropTypes from "prop-types";
 
 import Transcriptions from '../../components/transcription/Transcriptions';
-import { transcriptionOperations } from "../../../state/ducks/transcription/index";
+import {transcriptionOperations} from "../../../state/ducks/transcription/index";
 import CenteredTabs from '../../components/tabs';
 
-import { withStyles } from 'material-ui/styles';
+import {withStyles} from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 
@@ -73,6 +74,10 @@ class Corpus extends React.Component {
     this.authTab = 0;
   }
 
+  componentDidMount() {
+    this.props.fetchTranscriptions();
+  }
+
   tabHandler(e, i) {
     this.authTab = i;
   }
@@ -83,10 +88,10 @@ class Corpus extends React.Component {
 
     if (selectedTranscription) {
       filteredTranscriptions.forEach((t, i) => {
-          if (t.id === selectedTranscription.id) {
-            this.selectedIndex = i;
-          }
-        });
+        if (t.id === selectedTranscription.id) {
+          this.selectedIndex = i;
+        }
+      });
     }
 
     return (
@@ -99,11 +104,13 @@ class Corpus extends React.Component {
                             selectedIndex={this.selectedIndex}
                             selectTranscription={this.selectTranscription.bind(this)}/>}
 
-            <Button onClick={() => createTranscription(untitledTranscription)} fab mini color="primary" aria-label="add" className={classes.button}>
+            <Button onClick={() => createTranscription(untitledTranscription)} fab mini color="primary" aria-label="add"
+                    className={classes.button}>
               <AddIcon />
             </Button>
           </div>
-          <CenteredTabs selectedTranscription={selectedTranscription} authTab={this.authTab} update={update} changeTab={this.tabHandler}/>
+          <CenteredTabs selectedTranscription={selectedTranscription} authTab={this.authTab} update={update}
+                        changeTab={this.tabHandler}/>
         </div>
       </div>
     )
@@ -129,11 +136,30 @@ const mapStateToProps = state => {
   }
 };
 
-const mapDispatchToProps = {
+
+const mapDispatchToProps = dispatch => bindActionCreators({
   createTranscription: transcriptionOperations.create,
   select: transcriptionOperations.select,
   update: transcriptionOperations.update,
-};
+  fetchTranscriptions: () => transcriptionOperations.fetchPost()
+}, dispatch);
+
+// const mapDispatchToProps = dispatch => {
+//   console.log('dispatch', dispatch)
+//   return {
+//     createTranscription: transcriptionOperations.create,
+//     select: transcriptionOperations.select,
+//     update: transcriptionOperations.update,
+//     fetchTranscriptions: dispatch(transcriptionOperations.fetchPost())
+//   }
+// };
+
+// const mapDispatchToProps = {
+//   createTranscription: transcriptionOperations.create,
+//   select: transcriptionOperations.select,
+//   update: transcriptionOperations.update,
+//   fetchTranscriptions: transcriptionOperations.fetchPost,
+// };
 
 Corpus = connect(mapStateToProps, mapDispatchToProps)(Corpus);
 

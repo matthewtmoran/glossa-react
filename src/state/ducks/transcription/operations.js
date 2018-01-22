@@ -1,16 +1,51 @@
-import { create, remove, update, select } from "./actions";
+import { create, remove, update, select, requestList, receiveList, failedList, hydrateList } from "./actions";
+import fetch from 'cross-fetch'
 
-// This is a thunk which dispatches multiple actions from actions.js
-const createAndSelect = ( transcription ) => ( dispatch ) => {
-  dispatch( create( transcription ) ).then( ( createdTranscription ) => {
-    dispatch( select( createdTranscription ) );
-  });
-};
+
+function fetchPost() {
+  console.log('fetching post');
+  return (dispatch) => {
+    dispatch(requestList());
+
+    fetch(`/api/transcription`)
+      .then((response) => {
+        dispatch(receiveList());
+        return response.json();
+      })
+      .then((data) => dispatch(hydrateList(data)))
+      .catch(() => dispatch(failedList()));
+  };
+}
+
+// const fetchPost = () => (dispatch) => {
+//   console.log('fetchPost');
+//   // dispatch(requestList());
+//   return dispatch => fetch(`/api/transcription`)
+//     .then(res => res.json())
+//     .then(
+//       data => dispatch(receiveList()),
+//       err => dispatch(failedList())
+//     );
+//
+//
+//
+//   // return fetch(`/api/transcription`)
+//   //   .then((response )=> {
+//   //     dispatch(receiveList());
+//   //     return response.json()
+//   //   })
+//   //   .catch((error) => {
+//   //     dispatch(failedList());
+//   //   }).then((list) => {
+//   //     dispatch(hydrateList())
+//   //   })
+// };
+
 
 export {
-  createAndSelect,
   create,
   remove,
   update,
-  select
+  select,
+  fetchPost
 };

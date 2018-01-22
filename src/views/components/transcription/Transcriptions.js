@@ -14,10 +14,9 @@ const Transcriptions = (props) => {
     <List>
       {transcriptions.map((transcription, index) => (
         <ListItem button onClick={() => selectTranscription(transcription)} style={{ backgroundColor: index === selectedIndex ? theme.palette.text.divider : 'transparent'}}
-                  key={transcription.id}>
+                  key={transcription._id}>
           <ListItemText primary={transcription.title}/>
         </ListItem >
-
       ))}
     </List>
   )
