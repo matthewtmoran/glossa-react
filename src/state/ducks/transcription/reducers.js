@@ -49,7 +49,6 @@ const listReducer = (state = [], action) => {
       return []
     }
     case types.HYDRATE: {
-      console.log('hydrating... ');
       return action.payload
 
     }
@@ -66,14 +65,12 @@ const defaultFetchState = {
 const fetchReducer = (state = defaultFetchState, action) => {
   switch(action.type) {
     case types.FETCH_LIST: {
-      console.log('fetching list...');
       return {
         ...state,
         isFetching: action.payload
       }
     }
     case types.FETCH_LIST_COMPLETED: {
-      console.log('fetching list completed');
       return {
         ...state,
         isFetching: action.payload

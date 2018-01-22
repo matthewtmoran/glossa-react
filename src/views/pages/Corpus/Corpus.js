@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import Transcriptions from '../../components/transcription/Transcriptions';
 import {transcriptionOperations} from "../../../state/ducks/transcription/index";
 import CenteredTabs from '../../components/tabs';
+import CircularIndeterminate from '../../components/ProgressCircle';
 
 import {withStyles} from 'material-ui/styles';
 import Button from 'material-ui/Button';
@@ -68,14 +69,11 @@ class Corpus extends React.Component {
   }
 
   componentWillMount() {
-    if (this.props.transcriptions.length > 0 && !this.props.selectedTranscription) {
-      this.selectTranscription(this.props.transcriptions[0])
-    }
     this.authTab = 0;
   }
 
   componentDidMount() {
-    this.props.fetchTranscriptions();
+    this.props.fetchTranscriptions()
   }
 
   tabHandler(e, i) {
@@ -83,12 +81,12 @@ class Corpus extends React.Component {
   }
 
   render() {
-    const {classes, transcriptions, searchTerm, selectedTranscription, createTranscription, update} = this.props;
+    const {classes, transcriptions, searchTerm, selectedTranscription, createTranscription, update, isFetching} = this.props;
     let filteredTranscriptions = transcriptions.filter((t, i) => (searchTerm === '' || t.title.toLowerCase().includes(searchTerm.toLowerCase())));
 
     if (selectedTranscription) {
       filteredTranscriptions.forEach((t, i) => {
-        if (t.id === selectedTranscription.id) {
+        if (t._id === selectedTranscription._id) {
           this.selectedIndex = i;
         }
       });
@@ -98,11 +96,15 @@ class Corpus extends React.Component {
       <div className={classes.CorpusContainer}>
         <div className={classes.Corpus}>
           <div className={classes.Sidebar}>
-            {transcriptions.length > 0 &&
-            <Transcriptions transcriptions={filteredTranscriptions}
-                            searchTerm={searchTerm}
-                            selectedIndex={this.selectedIndex}
-                            selectTranscription={this.selectTranscription.bind(this)}/>}
+
+            {isFetching ? (
+                <CircularIndeterminate/>
+              ) : (
+                <Transcriptions transcriptions={filteredTranscriptions}
+                                searchTerm={searchTerm}
+                                selectedIndex={this.selectedIndex}
+                                selectTranscription={this.selectTranscription.bind(this)}/>
+              )}
 
             <Button onClick={() => createTranscription(untitledTranscription)} fab mini color="primary" aria-label="add"
                     className={classes.button}>
@@ -133,6 +135,7 @@ const mapStateToProps = state => {
     selectedTranscription: state.transcriptions.details,
     notebooks: state.notebooks.list,
     searchTerm: state.search.searchTerm,
+    isFetching: state.transcriptions.request.isFetching
   }
 };
 
