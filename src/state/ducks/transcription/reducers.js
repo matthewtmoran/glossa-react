@@ -36,7 +36,7 @@ const listReducer = (state = [], action) => {
     }
     case types.UPDATE: {
       return state.map((item) => {
-        if (item.id !== action.payload.id) {
+        if (item._id !== action.payload._id) {
           return item;
         }
         return {
@@ -59,6 +59,7 @@ const listReducer = (state = [], action) => {
 
 const defaultFetchState = {
   isFethcing: false,
+  updateRequest: false,
   didInvalidate: false,
 };
 
@@ -76,11 +77,29 @@ const fetchReducer = (state = defaultFetchState, action) => {
         isFetching: action.payload
       }
     }
+    case types.BEGIN_UPDATE: {
+      return {
+        ...state,
+        updateRequest: action.payload
+      }
+    }
+    case types.COMPLETE_UPDATE: {
+      return {
+        ...state,
+        updateRequest: action.payload
+      }
+    }
+    case types.FAILED_UPDATE: {
+      return {
+        ...state,
+        didInvalidate: action.payload.didInvalidate,
+        updateRequest: action.payload.updateRequest
+      }
+    }
     default:
       return state;
   }
 };
-
 
 const detailsReducer = (state = null , action) => {
   switch (action.type) {

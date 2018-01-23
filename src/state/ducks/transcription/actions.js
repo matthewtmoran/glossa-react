@@ -49,6 +49,25 @@ const hydrateList = (list) =>  ({
   payload: list
 });
 
+const beginUpdate = () => ({
+  type: types.BEGIN_UPDATE,
+  payload: true
+});
+
+const completeUpdate = () => ({
+  type: types.COMPLETE_UPDATE,
+  payload: false
+});
+
+const failedUpdate = () => ({
+  type: types.FAILED_UPDATE,
+  payload: {
+    didInvalidate: true,
+    updateRequest: false
+  }
+});
+
+
 
 
 export {
@@ -59,5 +78,8 @@ export {
   requestList,
   receiveList,
   failedList,
-  hydrateList
+  hydrateList,
+  beginUpdate,
+  completeUpdate,
+  failedUpdate
 }

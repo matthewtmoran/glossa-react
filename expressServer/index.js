@@ -1,12 +1,16 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-const {find, create} = require('../pouchdb/transcription');
+const {find, create, update} = require('../pouchdb/transcription');
 
+// app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.text());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 
 app.get('/api/transcription', (req, res) => {
@@ -27,6 +31,18 @@ app.post('/api/transcription', (req, res) => {
     })
     .catch((reason) => {
       console.log('reason')
+    })
+});
+
+
+app.put('/api/transcription/:id', (req, res) => {
+  update(JSON.parse(req.body))
+    .then((result) => {
+      console.log('result', result);
+      res.status(200).send(result);
+    })
+    .catch((reason) => {
+      console.log('reason', reason)
     })
 });
 

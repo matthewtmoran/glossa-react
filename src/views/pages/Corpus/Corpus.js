@@ -81,7 +81,16 @@ class Corpus extends React.Component {
   }
 
   render() {
-    const {classes, transcriptions, searchTerm, selectedTranscription, createTranscription, update, isFetching} = this.props;
+    const {
+      classes,
+      transcriptions,
+      searchTerm,
+      selectedTranscription,
+      createTranscription,
+      update,
+      isFetching,
+    } = this.props;
+
     let filteredTranscriptions = transcriptions.filter((t, i) => (searchTerm === '' || t.title.toLowerCase().includes(searchTerm.toLowerCase())));
 
     if (selectedTranscription) {
@@ -111,7 +120,9 @@ class Corpus extends React.Component {
               <AddIcon />
             </Button>
           </div>
-          <CenteredTabs selectedTranscription={selectedTranscription} authTab={this.authTab} update={update}
+          <CenteredTabs selectedTranscription={selectedTranscription}
+                        authTab={this.authTab}
+                        update={update}
                         changeTab={this.tabHandler}/>
         </div>
       </div>
@@ -143,7 +154,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => bindActionCreators({
   createTranscription: transcriptionOperations.create,
   select: transcriptionOperations.select,
-  update: transcriptionOperations.update,
+  update: (t) => transcriptionOperations.updateTranscription(t),
   fetchTranscriptions: () => transcriptionOperations.fetchPost()
 }, dispatch);
 

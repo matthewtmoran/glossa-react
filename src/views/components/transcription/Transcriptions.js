@@ -7,7 +7,7 @@ const Transcriptions = (props) => {
     theme,
     selectedIndex,
     transcriptions,
-    selectTranscription
+    selectTranscription,
   } = props;
 
   return (

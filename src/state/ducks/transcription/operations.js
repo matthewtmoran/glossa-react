@@ -1,4 +1,4 @@
-import { create, remove, update, select, requestList, receiveList, failedList, hydrateList } from "./actions";
+import { create, remove, update, select, requestList, receiveList, failedList, hydrateList, beginUpdate, completeUpdate, failedUpdate } from "./actions";
 import fetch from 'cross-fetch'
 
 
@@ -18,6 +18,27 @@ function fetchPost() {
   };
 }
 
+function updateTranscription(transcription) {
+  return (dispatch) => {
+    dispatch(beginUpdate());
+    fetch(`/api/transcription/${transcription._id}`, {
+      method: 'PUT',
+      body: JSON.stringify(transcription)
+    })
+      .then((response) => {
+         response.json().then((data) => {
+          dispatch(completeUpdate());
+          dispatch(update(data));
+          dispatch(select(data));
+        })
+      })
+      .catch((response) => {
+        console.log('error response', response);
+        dispatch(failedUpdate());
+      })
+  }
+}
+
 
 
 export {
@@ -25,5 +46,6 @@ export {
   remove,
   update,
   select,
-  fetchPost
+  fetchPost,
+  updateTranscription
 };
