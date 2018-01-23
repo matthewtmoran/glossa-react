@@ -25,9 +25,10 @@ app.get('/api/transcription', (req, res) => {
 
 
 app.post('/api/transcription', (req, res) => {
-  create()
+  create(JSON.parse(req.body))
     .then((result) => {
       console.log('result', result);
+      res.status(200).send(result);
     })
     .catch((reason) => {
       console.log('reason')
@@ -38,7 +39,6 @@ app.post('/api/transcription', (req, res) => {
 app.put('/api/transcription/:id', (req, res) => {
   update(JSON.parse(req.body))
     .then((result) => {
-      console.log('result', result);
       res.status(200).send(result);
     })
     .catch((reason) => {

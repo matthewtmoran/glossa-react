@@ -55,12 +55,17 @@ module.exports.find = function find() {
 
 module.exports.create = function create(transcription) {
   return new Promise((resolve, reject) => {
-    db.put(transcription).then((response) => {
+
+    return db.post(transcription).then((response) => {
       console.log('success in adding transcription', response);
+      if (!response.ok) {
+        reject(response)
+      }
 
-      resolve(response);
+      return db.get(response.id).then((t) => {
+        resolve(t);
+      });
 
-      // handle response
     }).catch(function (err) {
       console.log(err);
       reject(err);

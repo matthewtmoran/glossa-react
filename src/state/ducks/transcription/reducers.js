@@ -24,14 +24,9 @@ let transcriptionId = defaultState.length;
 const listReducer = (state = [], action) => {
   switch (action.type) {
     case types.CREATE: {
-      transcriptionId = transcriptionId + 1;
       return [
+        action.payload,
         ...state,
-        {
-          id: transcriptionId,
-          title: action.payload.title,
-          desc: action.payload.desc
-        }
       ]
     }
     case types.UPDATE: {

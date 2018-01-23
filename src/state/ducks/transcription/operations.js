@@ -40,6 +40,31 @@ function updateTranscription(transcription) {
 }
 
 
+function createTranscription(transcription) {
+  console.log('createTranscription', transcription);
+  return (dispatch) => {
+    dispatch(beginUpdate());
+
+    fetch(`/api/transcription`, {
+      method: 'POST',
+      body: JSON.stringify(transcription)
+    })
+      .then((response) => {
+      console.log('response');
+        response.json().then((data) => {
+          dispatch(completeUpdate());
+          dispatch(create(data));
+          dispatch(select(data));
+        })
+      })
+      .catch((response) => {
+        console.log('error response', response);
+        dispatch(failedUpdate());
+      })
+  }
+}
+
+
 
 export {
   create,
@@ -47,5 +72,6 @@ export {
   update,
   select,
   fetchPost,
-  updateTranscription
+  updateTranscription,
+  createTranscription
 };

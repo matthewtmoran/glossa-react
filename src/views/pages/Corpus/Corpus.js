@@ -58,7 +58,6 @@ const styles = theme => ({
 let untitledTranscription = {
   title: 'Untitled',
   desc: null,
-  id: null
 };
 
 class Corpus extends React.Component {
@@ -152,7 +151,7 @@ const mapStateToProps = state => {
 
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  createTranscription: transcriptionOperations.create,
+  createTranscription: (t) => transcriptionOperations.createTranscription(t),
   select: transcriptionOperations.select,
   update: (t) => transcriptionOperations.updateTranscription(t),
   fetchTranscriptions: () => transcriptionOperations.fetchPost()
