@@ -39,7 +39,7 @@ const mountTabValueFactory = (location, tabId) => {
 
 class FullWidthTabs extends React.Component {
   render() {
-    const {history, match, classes, theme, selectedTranscription, update} = this.props;
+    const {history, match, classes, theme, selectedTranscription, update, remove} = this.props;
     const tabId = 'myTabId';
     const getTabValue = mountTabValueFactory(history.location, tabId);
 
@@ -59,7 +59,7 @@ class FullWidthTabs extends React.Component {
           </Tabs>
         </AppBar>
         <TabContainer dir={theme.direction}>
-          <Route path={`${match.url}/meta`} render={(props) => <Meta selectedTranscription={selectedTranscription} update={update}/>}/>
+          <Route path={`${match.url}/meta`} render={(props) => <Meta selectedTranscription={selectedTranscription} update={update} remove={remove}/>}/>
         </TabContainer>
         <TabContainer dir={theme.direction}>
           <Route path={`${match.url}/baseline`} component={Baseline}/>

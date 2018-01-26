@@ -57,7 +57,6 @@ module.exports.create = function create(transcription) {
   return new Promise((resolve, reject) => {
 
     return db.post(transcription).then((response) => {
-      console.log('success in adding transcription', response);
       if (!response.ok) {
         reject(response)
       }
@@ -87,6 +86,26 @@ module.exports.update = function update(transcription) {
       console.log(err);
       reject(err);
     });
+
+  })
+};
+
+module.exports.deleteTrans = function deleteTrans(transcriptionId) {
+  return new Promise((resolve, reject) => {
+
+    db.get(transcriptionId)
+      .then((doc) => {
+        db.remove(doc._id, doc._rev)
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((reason) => {
+            reject(reason);
+          })
+      })
+      .catch((reason) => {
+          reject(reason);
+      })
 
   })
 };

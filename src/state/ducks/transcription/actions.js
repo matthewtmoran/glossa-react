@@ -24,7 +24,7 @@ const update = (transcription) => ({
 const select = (transcription) => ({
   type: types.SELECT,
   payload: {
-    transcription
+    transcription: transcription || null
   }
 });
 

@@ -2,7 +2,7 @@ import { create, remove, update, select, requestList, receiveList, failedList, h
 import fetch from 'cross-fetch'
 
 
-function fetchPost() {
+function fetchTranscriptions() {
   return (dispatch) => {
     dispatch(requestList());
     fetch(`/api/transcription`)
@@ -17,7 +17,6 @@ function fetchPost() {
       .catch(() => dispatch(failedList()));
   };
 }
-
 function updateTranscription(transcription) {
   return (dispatch) => {
     dispatch(beginUpdate());
@@ -38,10 +37,7 @@ function updateTranscription(transcription) {
       })
   }
 }
-
-
 function createTranscription(transcription) {
-  console.log('createTranscription', transcription);
   return (dispatch) => {
     dispatch(beginUpdate());
 
@@ -50,11 +46,31 @@ function createTranscription(transcription) {
       body: JSON.stringify(transcription)
     })
       .then((response) => {
-      console.log('response');
         response.json().then((data) => {
           dispatch(completeUpdate());
           dispatch(create(data));
           dispatch(select(data));
+        })
+      })
+      .catch((response) => {
+        console.log('error response', response);
+        dispatch(failedUpdate());
+      })
+  }
+}
+function removeTranscription(transcription, newTranscription) {
+  return (dispatch) => {
+    dispatch(beginUpdate());
+
+    fetch(`/api/transcription/${transcription._id}`, {
+      method: 'DELETE',
+      body: JSON.stringify(transcription)
+    })
+      .then((response) => {
+        response.json().then((data) => {
+          dispatch(completeUpdate());
+          dispatch(remove(data));
+          dispatch(select(newTranscription));
         })
       })
       .catch((response) => {
@@ -71,7 +87,8 @@ export {
   remove,
   update,
   select,
-  fetchPost,
+  fetchTranscriptions,
   updateTranscription,
-  createTranscription
+  createTranscription,
+  removeTranscription
 };

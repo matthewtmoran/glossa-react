@@ -19,7 +19,6 @@ const defaultState =[
   }
 ];
 
-let transcriptionId = defaultState.length;
 
 const listReducer = (state = [], action) => {
   switch (action.type) {
@@ -41,7 +40,7 @@ const listReducer = (state = [], action) => {
       })
     }
     case types.REMOVE: {
-      return []
+      return state.filter(t => t._id !== action.payload.id);
     }
     case types.HYDRATE: {
       return action.payload

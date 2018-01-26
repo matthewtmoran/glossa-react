@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-const {find, create, update} = require('../pouchdb/transcription');
+const {find, create, update, deleteTrans} = require('../pouchdb/transcription');
 
 // app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -38,6 +38,18 @@ app.post('/api/transcription', (req, res) => {
 
 app.put('/api/transcription/:id', (req, res) => {
   update(JSON.parse(req.body))
+    .then((result) => {
+      res.status(200).send(result);
+    })
+    .catch((reason) => {
+      console.log('reason', reason)
+    })
+});
+
+
+
+app.delete('/api/transcription/:id', (req, res) => {
+  deleteTrans(req.params.id)
     .then((result) => {
       res.status(200).send(result);
     })

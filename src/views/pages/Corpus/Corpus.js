@@ -67,6 +67,11 @@ class Corpus extends React.Component {
     this.selectedIndex = this.props.transcriptions.indexOf(transcription)
   }
 
+  handleRemove(t ) {
+    let newTrans = this.props.transcriptions[1];
+    this.props.remove(t, newTrans );
+  }
+
   componentWillMount() {
     this.authTab = 0;
   }
@@ -88,6 +93,7 @@ class Corpus extends React.Component {
       createTranscription,
       update,
       isFetching,
+      remove,
     } = this.props;
 
     let filteredTranscriptions = transcriptions.filter((t, i) => (searchTerm === '' || t.title.toLowerCase().includes(searchTerm.toLowerCase())));
@@ -122,6 +128,7 @@ class Corpus extends React.Component {
           <CenteredTabs selectedTranscription={selectedTranscription}
                         authTab={this.authTab}
                         update={update}
+                        remove={this.handleRemove.bind(this)}
                         changeTab={this.tabHandler}/>
         </div>
       </div>
@@ -151,28 +158,12 @@ const mapStateToProps = state => {
 
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  createTranscription: (t) => transcriptionOperations.createTranscription(t),
   select: transcriptionOperations.select,
   update: (t) => transcriptionOperations.updateTranscription(t),
-  fetchTranscriptions: () => transcriptionOperations.fetchPost()
+  remove: (t, n) => transcriptionOperations.removeTranscription(t, n),
+  createTranscription: (t) => transcriptionOperations.createTranscription(t),
+  fetchTranscriptions: () => transcriptionOperations.fetchTranscriptions()
 }, dispatch);
-
-// const mapDispatchToProps = dispatch => {
-//   console.log('dispatch', dispatch)
-//   return {
-//     createTranscription: transcriptionOperations.create,
-//     select: transcriptionOperations.select,
-//     update: transcriptionOperations.update,
-//     fetchTranscriptions: dispatch(transcriptionOperations.fetchPost())
-//   }
-// };
-
-// const mapDispatchToProps = {
-//   createTranscription: transcriptionOperations.create,
-//   select: transcriptionOperations.select,
-//   update: transcriptionOperations.update,
-//   fetchTranscriptions: transcriptionOperations.fetchPost,
-// };
 
 Corpus = connect(mapStateToProps, mapDispatchToProps)(Corpus);
 

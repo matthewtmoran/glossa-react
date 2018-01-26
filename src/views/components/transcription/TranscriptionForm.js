@@ -1,5 +1,6 @@
 import React from 'react';
 import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
 import { debounce } from 'lodash'
 
 class TranscriptionForm extends React.Component {
@@ -39,6 +40,7 @@ class TranscriptionForm extends React.Component {
   }, 500);
 
   render() {
+    const {remove} = this.props;
     return (
       <div>
         <TextField
@@ -57,6 +59,7 @@ class TranscriptionForm extends React.Component {
           fullWidth={true}
           onChange={this.handleChange.bind(this)}
         />
+        <Button onClick={(t) => remove(this.state)}>Delete Text</Button>
       </div>
     )
   }
