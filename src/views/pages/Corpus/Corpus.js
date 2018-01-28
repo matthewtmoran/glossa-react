@@ -93,7 +93,6 @@ class Corpus extends React.Component {
       createTranscription,
       update,
       isFetching,
-      remove,
     } = this.props;
 
     let filteredTranscriptions = transcriptions.filter((t, i) => (searchTerm === '' || t.title.toLowerCase().includes(searchTerm.toLowerCase())));

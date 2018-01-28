@@ -3,27 +3,34 @@ import {connect} from 'react-redux';
 
 import {uiOperations} from '../../../state/ducks/ui/index';
 
+import NotebookForm from './NotebookForm';
+
 import IconButton from 'material-ui/IconButton';
 import Typography from 'material-ui/Typography';
 import CloseIcon from 'material-ui-icons/Close';
+import {withStyles} from 'material-ui/styles';
 
+const styles = theme => ({
+  button: {
+    position: 'absolute',
+    top: 0,
+    right: '12px',
+    margin: 'auto'
+  }
+});
 
 class NotebookDetailsModal extends React.Component {
   handleClose = () => {
-    this.props.hide();
+    this.props.deselectAndModal();
   };
 
   render() {
-    const {notebook } = this.props;
+    console.log('NotebookDetailsModal')
+    const {notebook, classes, update} = this.props;
     return (
       <div>
-        <Typography type="title" id="modal-title">
-          {notebook.title}
-        </Typography>
-        <Typography type="subheading" id="simple-modal-description">
-          {notebook.desc}
-        </Typography>
-        <IconButton onClick={this.handleClose.bind(this)}>
+        <NotebookForm notebook={notebook} update={update}/>
+        <IconButton className={classes.button} onClick={this.handleClose.bind(this)}>
           <CloseIcon/>
         </IconButton>
       </div>
@@ -34,15 +41,15 @@ class NotebookDetailsModal extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    notebook: state.ui.modal.modalProps
+    notebook: state.notebooks.details
   }
 };
 
 const mapDispatchToProps = {
-  hide: uiOperations.hideModal
+  deselectAndModal: uiOperations.deselectAndModal
 };
 
 
 NotebookDetailsModal = connect(mapStateToProps, mapDispatchToProps)(NotebookDetailsModal);
 
-export default NotebookDetailsModal ;
+export default withStyles(styles)(NotebookDetailsModal);

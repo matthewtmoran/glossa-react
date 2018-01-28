@@ -14,24 +14,66 @@ const remove = ( notebook ) => ({
   }
 });
 
-const update = ( notebook ) => ({
-  type: types.UPDATE,
+// const update = ( notebook ) => ({
+//   type: types.UPDATE,
+//   payload: {
+//     ...notebook
+//   }
+// });
+const update = ( notebook ) => {
+  console.log('notebook', notebook);
+  return {
+    type: types.UPDATE,
+    payload: {
+      ...notebook
+    }
+  }
+};
+
+
+const selectNotebook = (notebook) => ({
+  type: types.SELECT,
   payload: {
-    ...notebook
+    notebook: notebook || null
   }
 });
 
+const deSelect = () => ({
+  type: types.DESELECT,
+  payload: null
+});
 
-const select = (notebook) => ({
-  type: types.SELECT,
+const apiRequest = () => ({
+  type: types.API_REQUESTING,
+  payload: true
+});
+
+const apiComplete = () => ({
+  type: types.API_COMPLETE,
+  payload: false
+});
+
+const apiFail = () => ({
+  type: types.API_FAILED,
   payload: {
-    notebook
+    failed: true,
+    requesting: false,
   }
+});
+
+const allNotebooks = (data) => ({
+  type: types.ALL,
+  payload: data
 });
 
 export {
   create,
   remove,
   update,
-  select
+  selectNotebook,
+  deSelect,
+  apiRequest,
+  apiComplete,
+  apiFail,
+  allNotebooks
 }

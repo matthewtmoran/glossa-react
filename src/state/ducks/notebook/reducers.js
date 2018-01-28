@@ -9,63 +9,52 @@ import * as types from "./types";
  }
  */
 
-const defaultState =[
-  {
-    id: 1,
-    title: 'Notebook 1',
-    desc: 'Notebook 1 text',
-  },
-  {
-    id: 2,
-    title: 'Notebook 2',
-    desc: 'Notebook 2 Text',
-  },
-  {
-    id: 3,
-    title: 'Notebook 3',
-    desc: 'Notebook 3Text',
-  },
-  {
-    id: 4,
-    title: 'Notebook 4',
-    desc: 'Notebook 4 Text',
-  },
-  {
-    id: 5,
-    title: 'Notebook 5',
-    desc: 'Notebook 5 Text',
-  },
-  {
-    id: 6,
-    title: 'Notebook 6',
-    desc: 'Notebook 6 Text',
-  },
-  {
-    id: 7,
-    title: 'Notebook 7',
-    desc: 'Notebook 7Text',
-  }
-];
 
-let notebookId = defaultState.length;
+const defaultAPIState = {
+  requesting: false,
+  failed: false,
+};
 
-
-const listReducer = (state = defaultState, action) => {
+const apiReducer = (state = defaultAPIState, action) => {
   switch (action.type) {
-    case types.CREATE: {
-      notebookId = notebookId + 1;
-      return [
+    case types.API_REQUESTING : {
+      return {
         ...state,
-        {
-          id: notebookId,
-          title: action.payload.title,
-          desc: action.payload.desc
-        }
+        requesting: action.payload
+      }
+    }
+    case types.API_COMPLETE: {
+      return {
+        ...state,
+        requesting: action.payload
+      }
+    }
+    case types.API_FAILED: {
+      return {...action.payload};
+    }
+    default: {
+      return state
+    }
+  }
+};
+
+
+const listReducer = (state = [], action) => {
+  switch (action.type) {
+    case types.ALL: {
+      return action.payload
+    }
+    case types.CREATE: {
+      return [
+        action.payload,
+        ...state,
       ]
     }
     case types.UPDATE: {
+      console.log('UPDATE');
+      console.log('action.payload', action.payload);
       return state.map((item) => {
-        if (item.id !== action.payload.id) {
+        if (item._id !== action.payload._id) {
           return item;
         }
         return {
@@ -75,7 +64,7 @@ const listReducer = (state = defaultState, action) => {
       })
     }
     case types.REMOVE: {
-      return []
+      return state.filter(d => d._id !== action.payload.id);
     }
     default:
       return state;
@@ -88,40 +77,18 @@ const detailsReducer = (state = null , action) => {
     case types.SELECT: {
       return action.payload.notebook
     }
+    case types.DESELECT: {
+      return action.payload
+    }
     default:
       return state;
   }
 };
 
-//
-// const notebookReducer = ( state = [], action) => {
-//   switch ( action.type ) {
-//     case types.CREATE: {
-//       return [
-//         ...state,
-//         {
-//           id: action.payload.id,
-//           title: action.payload.title
-//         }
-//       ]
-//     }
-//     case 'REMOVE_NOTEBOOK': {
-//       return []
-//     }
-//     default: {
-//       return state;
-//     }
-//   }
-// };
-
-// const reducer = combineReducers({
-//   notebook: notebookReducer
-// });
-
-
 const reducer = combineReducers( {
   list: listReducer,
-  details: detailsReducer
+  details: detailsReducer,
+  request: apiReducer
 });
 
 export default reducer

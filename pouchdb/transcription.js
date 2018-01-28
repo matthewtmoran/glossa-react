@@ -32,7 +32,6 @@ const docs = [
 //   console.log('seeded db');
 // });
 
-
 module.exports.find = function find() {
   return new Promise((resolve, reject) => {
     db.allDocs({
@@ -52,7 +51,6 @@ module.exports.find = function find() {
     });
   })
 };
-
 module.exports.create = function create(transcription) {
   return new Promise((resolve, reject) => {
 
@@ -71,7 +69,6 @@ module.exports.create = function create(transcription) {
     });
   })
 };
-
 module.exports.update = function update(transcription) {
   return new Promise((resolve, reject) => {
     db.get(transcription._id).then((doc) => {
@@ -89,7 +86,6 @@ module.exports.update = function update(transcription) {
 
   })
 };
-
 module.exports.deleteTrans = function deleteTrans(transcriptionId) {
   return new Promise((resolve, reject) => {
 

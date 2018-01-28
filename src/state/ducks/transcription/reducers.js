@@ -1,25 +1,6 @@
 import { combineReducers } from "redux";
 import * as types from "./types";
 
-const defaultState =[
-  {
-    id: 1,
-    title: 'Transcription',
-    desc: 'Description Text',
-  },
-  {
-    id: 2,
-    title: 'A Little trans',
-    desc: 'Description Text',
-  },
-  {
-    id: 3,
-    title: 'Trans the man',
-    desc: 'Description Text',
-  }
-];
-
-
 const listReducer = (state = [], action) => {
   switch (action.type) {
     case types.CREATE: {

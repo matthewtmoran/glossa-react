@@ -37,7 +37,7 @@ const styles = theme => ({
 
 class NotebookCard extends React.Component {
   handleOpen(event) {
-    this.props.show(this.props.notebook);
+    this.props.selectAndModal(this.props.notebook);
   }
 
   render() {

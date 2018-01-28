@@ -7,6 +7,9 @@ function fetchTranscriptions() {
     dispatch(requestList());
     fetch(`/api/transcription`)
       .then((response) => {
+        if (response.status >= 400) {
+          throw new Error("Bad response from server");
+        }
         dispatch(receiveList());
         return response.json();
       })
