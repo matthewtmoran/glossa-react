@@ -27,7 +27,7 @@ function AdvancedGridList(props) {
       <Grid className={classes.subroot} container spacing={24}>
 
         {notebooks.map((notebook, index ) => (
-          <Grid key={notebook._id item xs={12} sm={6} md={3}>
+          <Grid key={notebook._id} item xs={12} sm={6} md={3}>
             <NotebookCard notebook={notebook} toggleModal={toggleModal} select={select} selectAndModal={selectAndModal}/>
           </Grid>
         ))}
