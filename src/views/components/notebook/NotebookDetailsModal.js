@@ -7,6 +7,7 @@ import NotebookForm from './NotebookForm';
 
 import { CircularProgress } from 'material-ui/Progress';
 import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import DoneIcon from 'material-ui-icons/Done';
@@ -22,14 +23,8 @@ const styles = theme => ({
   },
   info: {
     position: 'absolute',
-    top: 0,
+    bottom: 0,
     left: '12px',
-    margin: 'auto'
-  },
-  info2: {
-    position: 'absolute',
-    top: 0,
-    left: '100px',
     margin: 'auto'
   },
   inline: {
@@ -37,6 +32,28 @@ const styles = theme => ({
   },
   progress: {
     paddingTop: '10px',
+  },
+  contentParent: {
+    minHeight: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1
+  },
+  contentChild: {
+    display: 'flex',
+    flexDirection: 'row',
+    flex: '0 0 50%',
+    height: '50%'
+  },
+  mediaSection: {
+    extend: 'contentChild',
+    minHeight: '200px',
+    textAlign: 'center'
+  },
+  buttons: {
+    display: 'block',
+    margin: '25px auto'
+    // flexDirection: 'row',
   }
 });
 
@@ -48,8 +65,16 @@ class NotebookDetailsModal extends React.Component {
   render() {
     const {notebook, classes, update, request} = this.props;
     return (
-      <div>
-        <NotebookForm notebook={notebook} update={update}/>
+      <div className={classes.contentParent}>
+
+        <div className={classes.mediaSection}>
+
+          <Button className={classes.buttons} raised={true} >Add Image</Button>
+          <Button className={classes.buttons} raised={true} >Add Audio</Button>
+
+        </div>
+
+        <NotebookForm notebook={notebook} update={update} className={classes.contentChild}/>
         <IconButton className={classes.button} onClick={this.handleClose.bind(this)}>
           <CloseIcon/>
         </IconButton>
