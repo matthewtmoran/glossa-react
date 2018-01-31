@@ -36,7 +36,7 @@ class Notebook extends React.Component {
       notebooks,
       isRequesting,
       selectAndModal,
-      update
+      removeNotebook,
     } = this.props;
     return (
       <div className="Notebook">
@@ -45,13 +45,14 @@ class Notebook extends React.Component {
         )}
 
           <NotebookList notebooks={notebooks}
-                        selectAndModal={selectAndModal}/>
+                        selectAndModal={selectAndModal}
+                        removeNotebook={removeNotebook}/>
 
-        <Button onClick={() => selectAndModal(null) } fab mini color="primary" aria-label="add"
+        <Button onClick={() => selectAndModal({}) } fab mini color="primary" aria-label="add"
                 className={classes.button}>
           <AddIcon />
         </Button>
-        <ModalRoot update={update}/>
+        <ModalRoot/>
       </div>
     )
   }
@@ -69,8 +70,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   create: notebookOperations.create,
   selectAndModal: (n) => uiOperations.selectAndModal(n),
-  update: (d) => notebookOperations.updateNotebook(d),
   fetch: (n) => notebookOperations.fetchNotebooks(n),
+  removeNotebook: (id) => notebookOperations.removeNotebook(id),
 };
 
 Notebook = connect(mapStateToProps, mapDispatchToProps)(Notebook);

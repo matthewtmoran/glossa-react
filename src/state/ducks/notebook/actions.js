@@ -21,7 +21,6 @@ const remove = ( notebook ) => ({
 //   }
 // });
 const update = ( notebook ) => {
-  console.log('notebook', notebook);
   return {
     type: types.UPDATE,
     payload: {

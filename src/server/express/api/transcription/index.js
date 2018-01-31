@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {find, create, update, deleteTrans} = require('../../../pouchdb/transcription');
+const {find, create, update, deleteTrans} = require('../../../pouch/transcription');
 
 // Home page route.
 router.get('/', (req, res) => {

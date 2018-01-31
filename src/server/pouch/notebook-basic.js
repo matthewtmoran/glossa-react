@@ -1,17 +1,31 @@
+import PouchDB from 'pouchdb';
+// const PouchDB = require('pouchdb').default;
 const path = require('path');
-const PouchDB = require('pouchdb');
 let databasePath;
-let appData = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + 'Library/Preferences' : '/var/local');
+let appData;
+let appName = 'glossa-react';   //TODO Use package.json file for this var
+let pouchPath = 'storage';
+let databaseName = 'notebook';
 
 //TODO: need to create file structure programatically
-//puchdb intended path
-let pouchPath = 'storage';
-let appName = 'glossa-react';   //TODO Use package.json file for this var
-let databaseName = 'notebook';
-databasePath = path.join(appData, appName, pouchPath, databaseName);
+//works for express note electron
+if (isElectron()) {
+  const remote = window.require('electron').remote;
+  const app = remote.app;
+  appData = app.getPath('userData');
+  databasePath = path.join(appData, pouchPath, databaseName)
+} else {
+appData = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + 'Library/Preferences' : '/var/local');
+  databasePath = path.join(appData, appName, pouchPath, databaseName);
+}
 
-var db = new PouchDB(databasePath);
+function isElectron() {
+  if (typeof window !== 'undefined' && typeof window.process === 'object' && window.process.type === 'renderer') {
+    return true;
+  }
+}
 
+const db = new PouchDB(databasePath);
 // const docs = [
 //   {_id: 'doc01', title: 'uno'}, {_id: 'doc02', title: 'dos'},
 //   {_id: 'doc03', title: 'tres'}, {_id: 'doc04', title: 'cuatro'},
@@ -32,12 +46,12 @@ var db = new PouchDB(databasePath);
 //   console.log('seeded db');
 // });
 
-module.exports.find = function find() {
+const findAPI = () => {
   return new Promise((resolve, reject) => {
     db.allDocs({
       include_docs: true,
       attachments: true
-    }).then(function (result) {
+    }).then((result) => {
       let items = result.rows.map((row) => {
         return row.doc;
       });
@@ -48,7 +62,8 @@ module.exports.find = function find() {
     });
   })
 };
-module.exports.create = function create(notebook) {
+
+const createAPI = (notebook) => {
   return new Promise((resolve, reject) => {
 
     return db.post(notebook).then((response) => {
@@ -66,7 +81,7 @@ module.exports.create = function create(notebook) {
     });
   })
 };
-module.exports.update = function update(notebook) {
+const updateAPI = (notebook) => {
   return new Promise((resolve, reject) => {
     db.get(notebook._id).then((doc) => {
       notebook._rev = doc._rev;
@@ -83,9 +98,8 @@ module.exports.update = function update(notebook) {
 
   })
 };
-module.exports.remove = function deleteTrans(notebookId) {
+const removeAPI = (notebookId) => {
   return new Promise((resolve, reject) => {
-
     db.get(notebookId)
       .then((doc) => {
         db.remove(doc._id, doc._rev)
@@ -103,7 +117,7 @@ module.exports.remove = function deleteTrans(notebookId) {
   })
 };
 
-module.exports.updateOrCreate = function(data) {
+const updateOrCreateAPI = (data) => {
   return new Promise((resolve, reject) => {
 
     //if there is no id with doc we are sending its a new document
@@ -146,3 +160,10 @@ module.exports.updateOrCreate = function(data) {
 
   })
 };
+
+export {
+  findAPI,
+  createAPI,
+  removeAPI,
+  updateOrCreateAPI
+}

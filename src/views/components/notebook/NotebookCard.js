@@ -40,6 +40,10 @@ class NotebookCard extends React.Component {
     this.props.selectAndModal(this.props.notebook);
   }
 
+  handleRemove() {
+    this.props.removeNotebook(this.props.notebook._id)
+  }
+
   render() {
     const { classes, notebook } = this.props;
     return (
@@ -71,7 +75,7 @@ class NotebookCard extends React.Component {
           </CardContent>
 
           <CardActions disableActionSpacing>
-            <IconButton>
+            <IconButton onClick={this.handleRemove.bind(this)}>
               <DeleteIcon aria-label="Delete"/>
             </IconButton>
 

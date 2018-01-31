@@ -1,5 +1,6 @@
+import PouchDB from 'pouchdb';
 const path = require('path');
-const PouchDB = require('pouchdb');
+// const PouchDB = require('pouchdb').default;
 let databasePath;
 let appData = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + 'Library/Preferences' : '/var/local');
 
@@ -10,7 +11,7 @@ let appName = 'glossa-react';   //TODO Use package.json file for this var
 let databaseName = 'transcription';
 databasePath = path.join(appData, appName, pouchPath, databaseName);
 
-var db = new PouchDB(databasePath);
+const db = new PouchDB(databasePath);
 
 const docs = [
   {_id: 'doc01', title: 'uno'}, {_id: 'doc02', title: 'dos'},

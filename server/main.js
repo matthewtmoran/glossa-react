@@ -21,7 +21,7 @@ if (config.proxy && config.proxy.enabled) {
 
 // This rewrites all routes requests to the root /index.html file
 // (ignoring file requests). If you want to implement isomorphic
-// rendering, you'll want to remove this middleware.
+// rendering, you'll want to remove this delegator.
 app.use(convert(historyApiFallback({
   verbose: false
 })))
@@ -32,14 +32,14 @@ app.use(convert(historyApiFallback({
 if (config.env === 'development') {
   const compiler = webpack(webpackConfig)
 
-  // Enable webpack-dev and webpack-hot middleware
+  // Enable webpack-dev and webpack-hot delegator
   const { publicPath } = webpackConfig.output
 
   app.use(webpackDevMiddleware(compiler, publicPath))
   app.use(webpackHMRMiddleware(compiler))
 
   // Serve static assets from ~/src/static since Webpack is unaware of
-  // these files. This middleware doesn't need to be enabled outside
+  // these files. This delegator doesn't need to be enabled outside
   // of development since this directory will be copied into ~/dist
   // when the application is compiled.
   app.use(serve(paths.client('static')))

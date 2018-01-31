@@ -51,8 +51,6 @@ const listReducer = (state = [], action) => {
       ]
     }
     case types.UPDATE: {
-      console.log('UPDATE');
-      console.log('action.payload', action.payload);
       return state.map((item) => {
         if (item._id !== action.payload._id) {
           return item;

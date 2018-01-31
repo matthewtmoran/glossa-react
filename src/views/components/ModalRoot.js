@@ -4,6 +4,7 @@ import Modal from 'material-ui/Modal';
 
 import {MODAL_TYPE} from '../../state/ducks/ui/types';
 import NotebookDetailsModal from './notebook/NotebookDetailsModal'
+import {notebookOperations} from '../../state/ducks/notebook/index';
 
 const MODAL_COMPONENTS = {};
 MODAL_COMPONENTS[`${MODAL_TYPE}`] = NotebookDetailsModal;
@@ -42,6 +43,9 @@ const ModalRoot = ({modalType, modalProps, update}) => {
     )
 };
 
+const mapDispatchToProps = {
+    update: (d) => notebookOperations.updateNotebook(d),
+};
 
 const mapStateToProps = state => {
   return {
@@ -50,4 +54,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps)(ModalRoot)
+export default connect(mapStateToProps, mapDispatchToProps)(ModalRoot)

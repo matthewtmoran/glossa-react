@@ -2,7 +2,7 @@ import reducer from "./reducers";
 import * as notebookOperations from './operations'
 
 export {
-  notebookOperations
+  notebookOperations,
 }
 
 export default reducer;

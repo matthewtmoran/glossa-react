@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
 
-const transcriptionAPI = require('./api/transcription');
+const transcriptionAPI = require('./api/transcription/index');
 const notebookAPI = require('./api/notebook');
 
 const app = express();
@@ -17,6 +17,7 @@ app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:htt
 
 app.use('/api/transcription', transcriptionAPI);
 app.use('/api/notebook', notebookAPI);
+
 
 
 app.listen(PORT, function () {

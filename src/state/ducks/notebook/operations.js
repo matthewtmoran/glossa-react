@@ -2,26 +2,31 @@ import {
   create,
   remove,
   update,
-  select,
+  selectNotebook,
   apiRequest,
   apiComplete,
   allNotebooks,
   apiFail
 } from "./actions";
 
+import api from '../../../server';
+
+const {
+  fetchNotebooksAPI,
+  updateNotebookAPI,
+  removeNotebookAPI,
+  updateOrCreateNotebookAPI
+} = api;
+
+console.log('updateOrCreateNotebookAPI', updateOrCreateNotebookAPI);
+
 const fetchNotebooks = () => {
   return (dispatch) => {
     dispatch(apiRequest());
 
-    fetch(`/api/notebook`)
-      .then((response) => {
-        if (response.status >= 400) {
-          throw new Error("Bad response from server");
-        }
-        dispatch(apiComplete());
-        return response.json();
-      })
+    fetchNotebooksAPI()
       .then((data) => {
+        dispatch(apiComplete());
         dispatch(allNotebooks(data))
       })
       .catch((reason) => {
@@ -32,25 +37,19 @@ const fetchNotebooks = () => {
 
 const updateNotebook = (notebook) => {
   return (dispatch) => {
+
     dispatch(apiRequest());
-    fetch(`/api/notebook`, {
-        method: 'PUT',
-        body: JSON.stringify(notebook)
-      })
-      .then((response) => {
-        if (response.status >= 400) {
-          throw new Error("Bad response from server");
-        }
-        return response.json()
-      })
+
+    updateOrCreateNotebookAPI(notebook)
       .then((data) => {
         if (!notebook._rev) {
-          dispatch(create(data));
-          dispatch(apiComplete());
-        } else {
-          dispatch(update(data));
-          dispatch(apiComplete());
-        }
+            dispatch(create(data));
+            dispatch(selectNotebook(data));
+            dispatch(apiComplete());
+          } else {
+            dispatch(update(data));
+            dispatch(apiComplete());
+          }
       })
       .catch((reason) => {
         dispatch(apiFail())
@@ -58,20 +57,27 @@ const updateNotebook = (notebook) => {
   }
 };
 
-const createNotebook = () => {
 
-};
-
-const removeNotebook = () => {
-
+const removeNotebook = (notebookId) => {
+  return (dispatch) => {
+    dispatch(apiRequest());
+    removeNotebookAPI(notebookId)
+      .then((data) => {
+        dispatch(remove(data));
+        dispatch(apiComplete());
+      })
+      .catch((reason) => {
+        dispatch(apiFail());
+      })
+  }
 };
 
 export {
   create,
   remove,
   update,
-  select,
+  selectNotebook,
   fetchNotebooks,
   updateNotebook,
-  createNotebook
+  removeNotebook
 };

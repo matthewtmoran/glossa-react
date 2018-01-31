@@ -7,7 +7,7 @@ const paths = config.utils_paths
 const debug = _debug('app:server:webpack-dev')
 
 export default function (compiler, publicPath) {
-  debug('Enable webpack dev middleware.')
+  debug('Enable webpack dev delegator.')
 
   const middleware = WebpackDevMiddleware(compiler, {
     publicPath,

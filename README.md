@@ -1038,7 +1038,7 @@ You may also specify any configuration value [`http-proxy-middleware`](https://g
 {
   // ...
   "proxy": {
-    "/api": {
+    pipes: {
       "target": "<url>",
       "ws": true
       // ...
@@ -1056,8 +1056,8 @@ Matches are regular expressions, so that you can use a regexp to match multiple 
 {
   // ...
   "proxy": {
-    // Matches any request starting with /api
-    "/api": {
+    pipes
+    pipes: {
       "target": "<url_1>",
       "ws": true
       // ...
@@ -1105,7 +1105,7 @@ Either way, you can proxy WebSocket requests manually in `package.json`:
     "/socket": {
       // Your compatible WebSocket server
       "target": "ws://<socket_url>",
-      // Tell http-proxy-middleware that this is a WebSocket proxy.
+      delegator
       // Also allows you to proxy WebSocket requests without an additional HTTP request
       // https://github.com/chimurai/http-proxy-middleware#external-websocket-upgrade
       "ws": true

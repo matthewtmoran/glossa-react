@@ -1,7 +1,16 @@
-const express = require('express');
-const router = express.Router();
+import express from 'express';
+import NotebookPouch from '../../../pouch/notebook';
+let router = express.Router();
 
-const {find, create, update, remove, updateOrCreate} = require('../../../pouchdb/notebook');
+//TODO: move function to controller
+
+const {
+  find,
+  create,
+  update,
+  remove,
+  updateOrCreate
+} = NotebookPouch;
 
 // Home page route.
 router.get('/', (req, res) => {
@@ -17,7 +26,6 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   create(JSON.parse(req.body))
     .then((result) => {
-      console.log('result', result);
       res.status(200).send(result);
     })
     .catch((reason) => {

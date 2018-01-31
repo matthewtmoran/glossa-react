@@ -11,11 +11,6 @@ class NotebookForm extends React.Component {
       notebook: {...this.props.notebook}
     };
 
-    // this.state = {
-    //   _id: this.props.notebook._id || null,
-    //   desc: this.props.notebook.desc || null,
-    //   title: this.props.notebook.title || null
-    // }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,7 +38,6 @@ class NotebookForm extends React.Component {
   trueChange = debounce((name, val) => {
     let myNbCopy = Object.assign({}, this.state.notebook);
     myNbCopy[name] = val;
-    console.log('myNbCopy ',myNbCopy );
     this.props.update(myNbCopy);
   }, 500);
 
