@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
 
-const transcriptionAPI = require('./api/transcription/index');
+const transcriptionAPI = require('./api/transcription');
 const notebookAPI = require('./api/notebook');
 
 const app = express();

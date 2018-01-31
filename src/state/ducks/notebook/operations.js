@@ -18,7 +18,6 @@ const {
   updateOrCreateNotebookAPI
 } = api;
 
-console.log('updateOrCreateNotebookAPI', updateOrCreateNotebookAPI);
 
 const fetchNotebooks = () => {
   return (dispatch) => {
