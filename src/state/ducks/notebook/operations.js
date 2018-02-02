@@ -6,7 +6,9 @@ import {
   apiRequest,
   apiComplete,
   allNotebooks,
-  apiFail
+  apiFail,
+  hideImage,
+  showImage
 } from "./actions";
 
 import api from '../../../server';
@@ -78,5 +80,7 @@ export {
   selectNotebook,
   fetchNotebooks,
   updateNotebook,
-  removeNotebook
+  removeNotebook,
+  showImage,
+  hideImage
 };

@@ -38,7 +38,6 @@ const apiReducer = (state = defaultAPIState, action) => {
   }
 };
 
-
 const listReducer = (state = [], action) => {
   switch (action.type) {
     case types.ALL: {
@@ -69,7 +68,6 @@ const listReducer = (state = [], action) => {
   }
 };
 
-
 const detailsReducer = (state = null , action) => {
   switch (action.type) {
     case types.SELECT: {
@@ -83,10 +81,27 @@ const detailsReducer = (state = null , action) => {
   }
 };
 
+const imageReducer = (state = null, action) => {
+  switch(action.type) {
+    case types.SHOW: {
+      return {
+        ...state,
+        ...action.payload
+      }
+    }
+    case types.HIDE: {
+      return action.payload;
+    }
+    default:
+      return state;
+  }
+};
+
 const reducer = combineReducers( {
   list: listReducer,
   details: detailsReducer,
-  request: apiReducer
+  request: apiReducer,
+  imagePreview: imageReducer
 });
 
 export default reducer

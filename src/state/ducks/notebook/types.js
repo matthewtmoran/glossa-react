@@ -8,6 +8,9 @@ const API_REQUESTING = "notebook/API/REQUESTING";
 const API_COMPLETE = "notebook/API/COMPLETE";
 const API_FAILED = "notebook/API/FAILED";
 
+const SHOW = "notebook/SHOW_IMAGE";
+const HIDE = "notebook/HIDE_IMAGE";
+
 const ALL = "notebook/ALL";
 
 export {
@@ -16,6 +19,8 @@ export {
   UPDATE,
   SELECT,
   DESELECT,
+  SHOW,
+  HIDE,
   ALL,
   API_REQUESTING ,
   API_COMPLETE,

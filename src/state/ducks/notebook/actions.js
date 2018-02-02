@@ -65,6 +65,16 @@ const allNotebooks = (data) => ({
   payload: data
 });
 
+const showImage = (data) => ({
+  type: types.SHOW,
+  payload: data
+});
+
+const hideImage = () => ({
+  type: types.HIDE,
+  payload: null
+});
+
 export {
   create,
   remove,
@@ -74,5 +84,7 @@ export {
   apiRequest,
   apiComplete,
   apiFail,
-  allNotebooks
+  allNotebooks,
+  showImage,
+  hideImage
 }
