@@ -51,10 +51,13 @@ const styles = theme => ({
     extend: 'contentChild',
     minHeight: '200px',
     textAlign: 'center',
-
+    flex: 1
   },
   paddingSection: {
-    padding: 8 * 4
+    padding: '32px 32px 8px 32px',
+    display: 'flex',
+    flexDirection: 'column',
+    flex:1
   },
   buttons: {
     display: 'block',
@@ -69,9 +72,9 @@ const styles = theme => ({
   hideButton: {
     position: 'absolute',
     top: 36,
-    right: 0,
-    left: 0,
+    right: 12,
     margin: 'auto',
+    color: 'white'
   }
 });
 
@@ -109,7 +112,8 @@ class NotebookDetailsModal extends React.Component {
       request,
       imagePreview,
       hideImagePreview,
-      showImagePreview
+      showImagePreview,
+      deselectAndModal
     } = this.props;
 
 
@@ -122,7 +126,7 @@ class NotebookDetailsModal extends React.Component {
               <img className={classes.mediaImage} src={imagePreview.imageSrc} alt=""/>
 
               <IconButton className={classes.hideButton} onClick={hideImagePreview}>
-                <VisibilityOffIcon/>
+                <VisibilityOffIcon style={{color: 'white'}}/>
               </IconButton>
 
             </div>
@@ -135,10 +139,11 @@ class NotebookDetailsModal extends React.Component {
         </div>
 
         <div className={classes.paddingSection}>
-          <NotebookForm notebook={notebook} update={update} className={classes.contentChild}/>
-          <IconButton className={classes.button} onClick={this.handleClose.bind(this)}>
-            <CloseIcon/>
-          </IconButton>
+          <NotebookForm notebook={notebook} update={update} className={classes.contentChild} deselectAndModal={deselectAndModal}/>
+
+          {/*<IconButton className={classes.button} onClick={this.handleClose.bind(this)}>*/}
+            {/*<CloseIcon/>*/}
+          {/*</IconButton>*/}
 
           <div className={classes.info}>
             {!!request.requesting ?
@@ -156,8 +161,6 @@ class NotebookDetailsModal extends React.Component {
             }
           </div>
         </div>
-
-
       </div>
     );
   }

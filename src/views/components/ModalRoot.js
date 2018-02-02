@@ -22,6 +22,8 @@ function getModalStyle() {
     backgroundColor: '#fff',
     boxShadow: '0 5px 15px rgba(0, 0, 0, .5)',
     // padding: 8 * 4,
+    display: 'flex',
+    flexDirection: 'column'
   };
 }
 
