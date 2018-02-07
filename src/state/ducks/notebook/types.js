@@ -11,6 +11,9 @@ const API_FAILED = "notebook/API/FAILED";
 const SHOW = "notebook/SHOW_IMAGE";
 const HIDE = "notebook/HIDE_IMAGE";
 
+const UPLOAD_SUCCESS = "notebook/UPLOAD_SUCCESS";
+const UPLOAD_FAIL = "notebook/UPLOAD_FAIL";
+
 const ALL = "notebook/ALL";
 
 export {
@@ -25,4 +28,6 @@ export {
   API_REQUESTING ,
   API_COMPLETE,
   API_FAILED,
+  UPLOAD_SUCCESS,
+  UPLOAD_FAIL,
 };

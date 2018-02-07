@@ -6,6 +6,7 @@ let appData;
 let appName = 'glossa-react';   //TODO Use package.json file for this var
 let pouchPath = 'storage';
 let databaseName = 'notebook';
+let storagePath;
 
 
 if (isElectron()) {
@@ -18,7 +19,9 @@ if (isElectron()) {
 } else {
   appData = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + 'Library/Preferences' : '/var/local');
 
-  databasePath = path.join(appData, appName, pouchPath, databaseName);
+  storagePath = path.join(appData, appName, pouchPath);
+
+  databasePath = path.join(storagePath, databaseName);
 }
 
 
@@ -29,5 +32,9 @@ function isElectron() {
 }
 
 const NotebookDb = new PouchDb(databasePath);
+
+export {
+  storagePath
+}
 
 export default NotebookDb;

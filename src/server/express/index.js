@@ -1,3 +1,4 @@
+import {storagePath} from '../pouch/notebook/notebook.model';
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
@@ -8,6 +9,8 @@ const notebookAPI = require('./api/notebook');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+app.use('/image', express.static(path.join(storagePath, 'image')));
+
 
 
 // app.use(bodyParser.urlencoded({ extended: false }));
@@ -15,9 +18,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.text());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 
+console.log('image api path static', path.join(storagePath, 'image'));
 app.use('/api/transcription', transcriptionAPI);
 app.use('/api/notebook', notebookAPI);
-
 
 
 app.listen(PORT, function () {

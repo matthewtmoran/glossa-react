@@ -70,11 +70,14 @@ const removeNotebookAPI = (id) => {
 
 };
 
-const updateOrCreateNotebookAPI = (notebook) => {
+const updateOrCreateNotebookAPI = (notebook, image) => {
   return new Promise((resolve, reject) => {
+    let formData = new FormData();
+    formData.append('notebook', JSON.stringify(notebook));
+    formData.append('file', image.file || null);
     fetch(`/api/notebook`, {
       method: 'PUT',
-      body: JSON.stringify(notebook)
+      body: formData
     })
       .then((response) => {
         if (response.status >= 400) {
@@ -91,6 +94,7 @@ const updateOrCreateNotebookAPI = (notebook) => {
 
   })
 };
+
 
 export {
   fetchNotebooksAPI,

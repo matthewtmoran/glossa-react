@@ -36,13 +36,15 @@ const fetchNotebooks = () => {
   }
 };
 
-const updateNotebook = (notebook) => {
+const updateNotebook = (notebook, newImage) => {
+  console.log('is there a new image?', newImage);
   return (dispatch) => {
 
     dispatch(apiRequest());
 
-    updateOrCreateNotebookAPI(notebook)
+    updateOrCreateNotebookAPI(notebook, newImage)
       .then((data) => {
+        console.log('data after update or createNotebook', data);
         if (!notebook._rev) {
             dispatch(create(data));
             dispatch(selectNotebook(data));
@@ -73,6 +75,10 @@ const removeNotebook = (notebookId) => {
   }
 };
 
+const uploadRequest = (data) => {
+  console.log('data', data);
+};
+
 export {
   create,
   remove,
@@ -82,5 +88,6 @@ export {
   updateNotebook,
   removeNotebook,
   showImage,
-  hideImage
+  hideImage,
+  uploadRequest
 };

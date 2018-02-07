@@ -66,8 +66,9 @@ class NotebookCard extends React.Component {
           {!!notebook.image &&
             <CardMedia
               className={classes.media}
-              image={notebook.image}/>
+              image={`image/${notebook.image.filename}`}/>
           }
+          <pre>{notebook.image && notebook.image.path}</pre>
           <CardContent>
             <Typography component="p">
               {notebook.desc}

@@ -97,10 +97,12 @@ class NotebookDetailsModal extends React.Component {
   };
 
   showImagePreview = (file) => {
+
     this.props.showImage(file);
   };
 
   hideImagePreview = (file) => {
+    this.setState({file: null});
     this.props.hideImage(file);
   };
 
@@ -139,11 +141,7 @@ class NotebookDetailsModal extends React.Component {
         </div>
 
         <div className={classes.paddingSection}>
-          <NotebookForm notebook={notebook} update={update} className={classes.contentChild} deselectAndModal={deselectAndModal}/>
-
-          {/*<IconButton className={classes.button} onClick={this.handleClose.bind(this)}>*/}
-            {/*<CloseIcon/>*/}
-          {/*</IconButton>*/}
+          <NotebookForm notebook={notebook} update={update} className={classes.contentChild} deselectAndModal={deselectAndModal} imagePreview={imagePreview}/>
 
           <div className={classes.info}>
             {!!request.requesting ?

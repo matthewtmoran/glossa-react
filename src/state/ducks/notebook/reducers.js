@@ -84,10 +84,11 @@ const detailsReducer = (state = null , action) => {
 const imageReducer = (state = null, action) => {
   switch(action.type) {
     case types.SHOW: {
-      return {
+      const returnObj = {
         ...state,
         ...action.payload
-      }
+      };
+      return returnObj;
     }
     case types.HIDE: {
       return action.payload;
@@ -97,11 +98,16 @@ const imageReducer = (state = null, action) => {
   }
 };
 
+const uploadReducer = (state = null, action) => {
+
+};
+
 const reducer = combineReducers( {
   list: listReducer,
   details: detailsReducer,
   request: apiReducer,
-  imagePreview: imageReducer
+  imagePreview: imageReducer,
+  // upload: uploadReducer
 });
 
 export default reducer

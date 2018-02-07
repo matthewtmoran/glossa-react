@@ -46,7 +46,7 @@ const ModalRoot = ({modalType, modalProps, update}) => {
 };
 
 const mapDispatchToProps = {
-    update: (d) => notebookOperations.updateNotebook(d),
+    update: (d, n) => notebookOperations.updateNotebook(d, n),
 };
 
 const mapStateToProps = state => {

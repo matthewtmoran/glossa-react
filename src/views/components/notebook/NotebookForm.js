@@ -38,7 +38,8 @@ class NotebookForm extends React.Component {
         notebook: {
           _id: nextProps.notebook._id,
           desc: nextProps.notebook.desc,
-          title: nextProps.notebook.title
+          title: nextProps.notebook.title,
+          image: nextProps.notebook.image
         },
         unsaved: false
       });
@@ -59,7 +60,9 @@ class NotebookForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.update(this.state.notebook);
+
+    console.log('this.props.imagePreview', this.props.imagePreview);
+    this.props.update(this.state.notebook, this.props.imagePreview);
     this.setState({unsaved: false});
   }
 

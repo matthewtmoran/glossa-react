@@ -13,6 +13,7 @@ const styles = theme => ({
 class ImageUpload extends React.Component {
   handleButtonClick() {
     console.log('handleButtonClick');
+
   }
 
   handleImageChange(e) {
@@ -20,6 +21,8 @@ class ImageUpload extends React.Component {
     let file = e.target.files[0];
     let reader = new FileReader();
     let url = reader.readAsDataURL(file);
+    // let formData = new FormData();
+    // formData.append('file',file);
     reader.onloadend = () => {
       this.props.showImagePreview({
         file: file,
