@@ -39,14 +39,10 @@ const ModalRoot = ({modalType, modalProps, update}) => {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description">
         <div style={getModalStyle()}>
-          <SpecificModal {...modalProps} update={update} />
+          <SpecificModal {...modalProps}/>
         </div>
       </Modal>
     )
-};
-
-const mapDispatchToProps = {
-    update: (d, n) => notebookOperations.updateNotebook(d, n),
 };
 
 const mapStateToProps = state => {
@@ -56,4 +52,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalRoot)
+export default connect(mapStateToProps)(ModalRoot)

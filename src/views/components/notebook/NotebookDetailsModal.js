@@ -6,6 +6,7 @@ import {notebookOperations} from '../../../state/ducks/notebook/index';
 
 import NotebookForm from './NotebookForm';
 import ImageUpload from '../ImageUpload';
+import NotebookMedia from './NotebookMedia';
 
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
@@ -57,7 +58,7 @@ const styles = theme => ({
     padding: '32px 32px 8px 32px',
     display: 'flex',
     flexDirection: 'column',
-    flex:1
+    flex: 1
   },
   buttons: {
     display: 'block',
@@ -69,79 +70,86 @@ const styles = theme => ({
     width: '100%',
     overflow: 'hidden'
   },
-  hideButton: {
-    position: 'absolute',
-    top: 36,
-    right: 12,
-    margin: 'auto',
-    color: 'white'
+  imagePreview: {
+    maxHeight: '600px'
   }
+
 });
-
-function getMediaSectionStyle(imagePreview) {
-  let imgUrl = (imagePreview && imagePreview.imageSrc) ? imagePreview.imageSrc : imagePreview;
-
-  if (imgUrl) {
-    const mediaStyle = {
-      backgroundImage: 'url(' + imgUrl + ')'
-    };
-    return mediaStyle;
-  }
-  return imgUrl
-}
 
 
 class NotebookDetailsModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = ({
+      notebook: {...this.props.notebook}
+    })
+  }
+
+
   handleClose = () => {
     this.props.deselectAndModal();
   };
 
-  showImagePreview = (file) => {
 
-    this.props.showImage(file);
+  showImagePreview = (file) => {
+    let notebook = {...this.state.notebook};
+    notebook.image = file;
+    this.setState({notebook});
   };
 
   hideImagePreview = (file) => {
-    this.setState({file: null});
-    this.props.hideImage(file);
+    let notebook = {...this.state.notebook};
+    notebook.image = null;
+    this.setState({notebook});
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (JSON.stringify(this.state.notebook) !== JSON.stringify(nextProps.notebook)) {
+      this.setState({notebook: nextProps.notebook});
+    }
+  }
+
+  handleChange(field, value) {
+    let notebook = this.state.notebook;
+    notebook[field] = value;
+    this.setState({notebook});
+  }
+
+  handleUpdate() {
+    this.props.update(this.state.notebook);
+  }
 
   render() {
     const {
       notebook,
       classes,
-      update,
       request,
-      imagePreview,
-      hideImagePreview,
-      showImagePreview,
-      deselectAndModal
+      deselectAndModal,
     } = this.props;
-
-
     return (
       <div className={classes.contentParent}>
         <div className={classes.mediaSection}>
 
-          {imagePreview ? (
-            <div>
-              <img className={classes.mediaImage} src={imagePreview.imageSrc} alt=""/>
-
-              <IconButton className={classes.hideButton} onClick={hideImagePreview}>
-                <VisibilityOffIcon style={{color: 'white'}}/>
-              </IconButton>
-
-            </div>
-          ) : (
-            <ImageUpload showImagePreview={showImagePreview}>Add Image</ImageUpload>
-          )}
-
+          {(this.state.notebook.image) ? (
+            <NotebookMedia className={classes.imagePreview}
+                           remove={this.hideImagePreview.bind(this)}
+                           imageSrc={this.state.notebook.image.path}/>
+          ) : (<ImageUpload showImagePreview={this.showImagePreview.bind(this)}>Add Image</ImageUpload>)}
           <Button className={classes.buttons} raised={true}>Add Audio</Button>
-
         </div>
 
         <div className={classes.paddingSection}>
-          <NotebookForm notebook={notebook} update={update} className={classes.contentChild} deselectAndModal={deselectAndModal} imagePreview={imagePreview}/>
+
+          <NotebookForm notebook={notebook}
+                        handleChange={this.handleChange.bind(this)}
+                        className={classes.contentChild}
+                        deselectAndModal={deselectAndModal}/>
+
+          <div className={classes.formActions}>
+            <Button onClick={this.handleUpdate.bind(this)}>Save Text</Button>
+            <Button onClick={this.handleClose.bind(this)}>{this.state.unsaved ? 'Cancel' : 'Close' }</Button>
+          </div>
+
 
           <div className={classes.info}>
             {!!request.requesting ?
@@ -157,6 +165,8 @@ class NotebookDetailsModal extends React.Component {
                 </IconButton>
               )
             }
+
+
           </div>
         </div>
       </div>
@@ -174,6 +184,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
+  update: notebookOperations.updateNotebook,
   deselectAndModal: uiOperations.deselectAndModal,
   hideImagePreview: notebookOperations.hideImage,
   showImagePreview: notebookOperations.showImage

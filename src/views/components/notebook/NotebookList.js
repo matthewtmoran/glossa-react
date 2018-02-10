@@ -40,7 +40,6 @@ function AdvancedGridList(props) {
                           removeNotebook={removeNotebook}/>
           </Grid>
         ))}
-
       </Grid>
     </div>
   );

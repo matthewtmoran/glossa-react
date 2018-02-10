@@ -36,21 +36,21 @@ const fetchNotebooks = () => {
   }
 };
 
-const updateNotebook = (notebook, newImage) => {
-  console.log('is there a new image?', newImage);
+const updateNotebook = (notebook) => {
+  console.log('updateNotebook...')
   return (dispatch) => {
 
     dispatch(apiRequest());
 
-    updateOrCreateNotebookAPI(notebook, newImage)
+    updateOrCreateNotebookAPI(notebook)
       .then((data) => {
-        console.log('data after update or createNotebook', data);
         if (!notebook._rev) {
             dispatch(create(data));
             dispatch(selectNotebook(data));
             dispatch(apiComplete());
           } else {
             dispatch(update(data));
+            dispatch(selectNotebook(data));
             dispatch(apiComplete());
           }
       })

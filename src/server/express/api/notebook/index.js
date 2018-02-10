@@ -42,9 +42,13 @@ router.post('/', (req, res) => {
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
+    console.log('');
+    console.log('req,body.notebook', req.body.notebook);
+    console.log('');
     cb(null, imagePath)
   },
   filename: function (req, file, cb) {
+    console.log('req,body', req.body);
     let date = '-' + Date.now();
     let name = file.originalname.replace(/(\.[\w\d_-]+)$/i, date + '$1');
     cb(null, name)
@@ -56,17 +60,16 @@ let upload = multer({ storage: storage }).array('file');
 const imageUpload = ((req, res, next) => {
   upload(req, res, (err) => {
     if (err) {
-      console.log('uploadError');
       throw err;
     }
-    console.log('req.files', req.files);
-    //build image object data
-    // console.log('req.files', req.files);
-
     let notebook = JSON.parse(req.body.notebook);
-    notebook.image = ImageMeta(req.files[0]);
-    req.body.notebook = JSON.stringify(notebook);
 
+    if (req.files && req.files.length > 0) {
+      notebook.image = ImageMeta(req.files[0]);
+      // return next();
+    }
+
+    req.body.notebook = JSON.stringify(notebook);
     next();
   });
 });

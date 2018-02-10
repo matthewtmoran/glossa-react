@@ -17,16 +17,13 @@ class ImageUpload extends React.Component {
   }
 
   handleImageChange(e) {
-    console.log('handleImageChange');
     let file = e.target.files[0];
     let reader = new FileReader();
     let url = reader.readAsDataURL(file);
-    // let formData = new FormData();
-    // formData.append('file',file);
     reader.onloadend = () => {
       this.props.showImagePreview({
         file: file,
-        imageSrc: reader.result
+        path: reader.result
       })
     };
   }
@@ -38,8 +35,8 @@ class ImageUpload extends React.Component {
               raised
               component="label"
               onClick={this.handleButtonClick}
-              label='My Label'>
-        Upload Image <FileUploadIcon/>
+              label='My Label'>Upload Image
+        <FileUploadIcon/>
         <input
           onChange={e => this.handleImageChange(e) }
           style={{display: 'none'}}
