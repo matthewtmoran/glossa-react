@@ -23,6 +23,7 @@ class TranscriptionForm extends React.Component {
     }
   }
 
+
   //this only updates component/local state
   handleChange(e) {
     e.persist();
@@ -40,7 +41,7 @@ class TranscriptionForm extends React.Component {
   }, 500);
 
   render() {
-    const {remove} = this.props;
+    const {remove,openModal} = this.props;
     return (
       <div>
         <TextField
@@ -60,6 +61,7 @@ class TranscriptionForm extends React.Component {
           onChange={this.handleChange.bind(this)}
         />
         <Button onClick={(t) => remove(this.state)}>Delete Text</Button>
+        <Button onClick={() => openModal()}>Attach Media</Button>
       </div>
     )
   }

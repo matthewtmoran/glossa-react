@@ -26,7 +26,6 @@ const NotebookMedia = (props) => {
     imageSrc,
     remove
   } = props;
-  console.log('NotbookMedia render (imagesrc may be changing');
   return (
     <div>
       <img className={classes.mediaImage} src={imageSrc} alt=""/>

@@ -15,7 +15,6 @@ import api from '../../../server';
 
 const {
   fetchNotebooksAPI,
-  updateNotebookAPI,
   removeNotebookAPI,
   updateOrCreateNotebookAPI
 } = api;

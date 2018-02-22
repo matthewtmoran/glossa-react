@@ -75,17 +75,6 @@ const hideImage = () => ({
   payload: null
 });
 
-const uploadSuccess = (data) => ({
-  type: types.UPLOAD_SUCCESS,
-  payload: {...data}
-});
-
-const uploadFailed = (error) => ({
-  type: types.UPLOAD_FAIL,
-  payload: {...error}
-});
-
-
 
 export {
   create,

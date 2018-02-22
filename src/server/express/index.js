@@ -18,7 +18,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.text());
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
 
-console.log('image api path static', path.join(storagePath, 'image'));
 app.use('/api/transcription', transcriptionAPI);
 app.use('/api/notebook', notebookAPI);
 

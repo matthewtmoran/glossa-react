@@ -1,10 +1,10 @@
-import {toggleDrawer, hideModal, showModal} from "./actions";
+import {toggleDrawer, hideModal, showModal, showAttachmentModal} from "./actions";
 import {selectNotebook, deSelect} from "../notebook/actions";
 
-const selectAndModal = (notebook) => {
+const selectAndModal = (data) => {
   return (dispatch) => {
-    dispatch(selectNotebook(notebook));
-    dispatch(showModal());
+    dispatch(selectNotebook(data.notebook));
+    dispatch(showModal(data));
   }
 };
 
@@ -15,11 +15,18 @@ const deselectAndModal = () => {
   }
 };
 
+const attachModal = () => {
+  return (dispatch) => {
+    dispatch(showAttachmentModal());
+  }
+};
+
 
 export {
   toggleDrawer,
   hideModal,
   showModal,
   selectAndModal,
-  deselectAndModal
+  deselectAndModal,
+  attachModal
 };

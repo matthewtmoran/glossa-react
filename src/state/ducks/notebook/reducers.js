@@ -98,16 +98,12 @@ const imageReducer = (state = null, action) => {
   }
 };
 
-const uploadReducer = (state = null, action) => {
-
-};
 
 const reducer = combineReducers( {
   list: listReducer,
   details: detailsReducer,
   request: apiReducer,
   imagePreview: imageReducer,
-  // upload: uploadReducer
 });
 
 export default reducer

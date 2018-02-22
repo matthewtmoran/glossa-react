@@ -2,12 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Modal from 'material-ui/Modal';
 
-import {MODAL_TYPE} from '../../state/ducks/ui/types';
+import {NOTEBOOK_MODAL, ATTACHMENT_MODAL} from '../../state/ducks/ui/types';
 import NotebookDetailsModal from './notebook/NotebookDetailsModal'
-import {notebookOperations} from '../../state/ducks/notebook/index';
+import AttachmentModal from './modals/AttachmentModal';
 
 const MODAL_COMPONENTS = {};
-MODAL_COMPONENTS[`${MODAL_TYPE}`] = NotebookDetailsModal;
+MODAL_COMPONENTS[`${NOTEBOOK_MODAL}`] = NotebookDetailsModal;
+MODAL_COMPONENTS[`${ATTACHMENT_MODAL}`] = AttachmentModal;
 
 
 function getModalStyle() {
@@ -33,16 +34,16 @@ const ModalRoot = ({modalType, modalProps, update}) => {
   }
   const SpecificModal = MODAL_COMPONENTS[modalType];
   return (
-      <Modal
-        open={true}
-        disableBackdropClick={true}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description">
-        <div style={getModalStyle()}>
-          <SpecificModal {...modalProps}/>
-        </div>
-      </Modal>
-    )
+    <Modal
+      open={true}
+      disableBackdropClick={true}
+      aria-labelledby="simple-modal-title"
+      aria-describedby="simple-modal-description">
+      <div style={getModalStyle()}>
+        <SpecificModal {...modalProps}/>
+      </div>
+    </Modal>
+  )
 };
 
 const mapStateToProps = state => {

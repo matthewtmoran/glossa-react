@@ -3,9 +3,8 @@ import {connect} from 'react-redux'
 import {notebookOperations} from '../../state/ducks/notebook/index';
 import {uiOperations} from '../../state/ducks/ui/index';
 import NotebookList from '../components/notebook/NotebookList';
-import ModalRoot from '../components/ModalRoot';
 import CircularIndeterminate from '../components/ProgressCircle';
-
+import {NOTEBOOK_MODAL} from '../../state/ducks/ui/types';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 import {withStyles} from 'material-ui/styles';
@@ -29,13 +28,19 @@ class Notebook extends React.Component {
 
   }
 
+  openModal(notebook) {
+    this.props.selectAndModal({
+      modalType: NOTEBOOK_MODAL,
+      notebook: notebook
+    })
+  }
+
 
   render() {
     const {
       classes,
       notebooks,
       isRequesting,
-      selectAndModal,
       removeNotebook,
     } = this.props;
     return (
@@ -45,14 +50,14 @@ class Notebook extends React.Component {
         )}
 
           <NotebookList notebooks={notebooks}
-                        selectAndModal={selectAndModal}
+                        selectAndModal={this.openModal.bind(this)}
                         removeNotebook={removeNotebook}/>
 
-        <Button onClick={() => selectAndModal({}) } fab mini color="primary" aria-label="add"
+        <Button onClick={() => this.openModal({}) } fab mini color="primary" aria-label="add"
                 className={classes.button}>
           <AddIcon />
         </Button>
-        <ModalRoot/>
+        {/*<ModalRoot/>*/}
       </div>
     )
   }
@@ -63,13 +68,12 @@ const mapStateToProps = state => {
     notebooks: state.notebooks.list,
     isRequesting: state.notebooks.request.requesting,
     searchTerm: state.search.searchTerm,
-    // notebook: state.notebooks.details
   }
 };
 
 const mapDispatchToProps = {
   create: notebookOperations.create,
-  selectAndModal: (n) => uiOperations.selectAndModal(n),
+  selectAndModal: (data) => uiOperations.selectAndModal(data),
   fetch: (n) => notebookOperations.fetchNotebooks(n),
   removeNotebook: (id) => notebookOperations.removeNotebook(id),
 };

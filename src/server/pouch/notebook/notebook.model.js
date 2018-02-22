@@ -17,7 +17,7 @@ if (isElectron()) {
   databasePath = path.join(appData, pouchPath, databaseName)
 
 } else {
-  appData = process.env.APPDATA || (process.platform == 'darwin' ? process.env.HOME + 'Library/Preferences' : '/var/local');
+  appData = process.env.APPDATA || (process.platform === 'darwin' ? process.env.HOME + 'Library/Preferences' : '/var/local');
 
   storagePath = path.join(appData, appName, pouchPath);
 

@@ -7,22 +7,29 @@ const toggleDrawer = ( isOpen ) => ({
   }
 });
 
-const showModal = ( notebook ) => ({
+const showModal = (data) => ({
   type: types.SHOW_MODAL,
-  modalType: types.MODAL_TYPE,
+  modalType: data.modalType,
   payload: {
-    ...notebook
+    ...data.modalProps
   }
 });
 
 const hideModal = ( ) => ({
   type: types.HIDE_MODAL,
-  modalType: types.MODAL_TYPE,
+  modalType: types.NOTEBOOK_MODAL,
+  payload: null
+});
+
+const showAttachmentModal = () => ({
+  type: types.ATTACHMENT_MODAL,
+  modalType: types.ATTACHMENT_MODAL,
   payload: null
 });
 
 export {
   toggleDrawer,
   showModal,
-  hideModal
+  hideModal,
+  showAttachmentModal
 }

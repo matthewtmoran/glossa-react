@@ -11,8 +11,6 @@ import NotebookMedia from './NotebookMedia';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
-import CloseIcon from 'material-ui-icons/Close';
-import VisibilityOffIcon from 'material-ui-icons/VisibilityOff';
 import DoneIcon from 'material-ui-icons/Done';
 import CachedIcon from 'material-ui-icons/Cached';
 import {withStyles} from 'material-ui/styles';

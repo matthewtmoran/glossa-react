@@ -3,8 +3,11 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux'
 import PropTypes from "prop-types";
 
+import {ATTACHMENT_MODAL} from '../../../state/ducks/ui/types';
+
 import Transcriptions from '../../components/transcription/Transcriptions';
 import {transcriptionOperations} from "../../../state/ducks/transcription/index";
+import {uiOperations} from "../../../state/ducks/ui/index";
 import CenteredTabs from '../../components/tabs';
 import CircularIndeterminate from '../../components/ProgressCircle';
 
@@ -84,6 +87,16 @@ class Corpus extends React.Component {
     this.authTab = i;
   }
 
+  openModal() {
+    this.props.showModal({
+      modalType: ATTACHMENT_MODAL,
+      modalProps: {
+
+      }
+    })
+  }
+
+
   render() {
     const {
       classes,
@@ -127,6 +140,7 @@ class Corpus extends React.Component {
           <CenteredTabs selectedTranscription={selectedTranscription}
                         authTab={this.authTab}
                         update={update}
+                        openModal={this.openModal.bind(this)}
                         remove={this.handleRemove.bind(this)}
                         changeTab={this.tabHandler}/>
         </div>
@@ -151,7 +165,7 @@ const mapStateToProps = state => {
     selectedTranscription: state.transcriptions.details,
     notebooks: state.notebooks.list,
     searchTerm: state.search.searchTerm,
-    isFetching: state.transcriptions.request.isFetching
+    isFetching: state.transcriptions.request.isFetching,
   }
 };
 
@@ -161,7 +175,8 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   update: (t) => transcriptionOperations.updateTranscription(t),
   remove: (t, n) => transcriptionOperations.removeTranscription(t, n),
   createTranscription: (t) => transcriptionOperations.createTranscription(t),
-  fetchTranscriptions: () => transcriptionOperations.fetchTranscriptions()
+  fetchTranscriptions: () => transcriptionOperations.fetchTranscriptions(),
+  showModal: (modalType, modelProps) => uiOperations.showModal(modalType, modelProps),
 }, dispatch);
 
 Corpus = connect(mapStateToProps, mapDispatchToProps)(Corpus);
