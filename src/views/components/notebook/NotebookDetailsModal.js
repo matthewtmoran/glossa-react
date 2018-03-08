@@ -6,6 +6,8 @@ import {notebookOperations} from '../../../state/ducks/notebook/index';
 
 import NotebookForm from './NotebookForm';
 import ImageUpload from '../ImageUpload';
+import AudioUpload from '../AudioUpload';
+import AudioPreview from '../AudioPreview';
 import NotebookMedia from './NotebookMedia';
 
 import Typography from 'material-ui/Typography';
@@ -95,6 +97,13 @@ class NotebookDetailsModal extends React.Component {
     this.setState({notebook});
   };
 
+  showAudioPreview(file) {
+    console.log('showAudioPreview');
+    const notebook = {...this.state.notebook};
+    notebook.audio = file;
+    this.setState({notebook});
+  }
+
   hideImagePreview = (file) => {
     let notebook = {...this.state.notebook};
     notebook.image = null;
@@ -117,6 +126,14 @@ class NotebookDetailsModal extends React.Component {
     this.props.update(this.state.notebook);
   }
 
+  onTimeUpdate(data) {
+    console.log('onTimeUpdate', data);
+  }
+  onProgress(data) {
+    console.log('onProgress', data);
+  }
+
+
   render() {
     const {
       notebook,
@@ -133,7 +150,21 @@ class NotebookDetailsModal extends React.Component {
                            remove={this.hideImagePreview.bind(this)}
                            imageSrc={this.state.notebook.image.path}/>
           ) : (<ImageUpload showImagePreview={this.showImagePreview.bind(this)}>Add Image</ImageUpload>)}
-          <Button className={classes.buttons} raised={true}>Add Audio</Button>
+
+
+          {(this.state.notebook.audio) ? (
+            <AudioPreview audioSrc={this.state.notebook.audio.path}
+                          isPlaying={false}
+                          defaultTime={0}
+                          onTimeUpdate={this.onTimeUpdate.bind(this)}
+                          onProgress={this.onProgress.bind(this)}
+                            />
+          ) : (
+            <AudioUpload showAudioPreview={this.showAudioPreview.bind(this)}/>
+          )}
+
+          {/*<Button className={classes.buttons} raised={true}>Add Audio</Button>*/}
+
         </div>
 
         <div className={classes.paddingSection}>
@@ -142,6 +173,8 @@ class NotebookDetailsModal extends React.Component {
                         handleChange={this.handleChange.bind(this)}
                         className={classes.contentChild}
                         deselectAndModal={deselectAndModal}/>
+
+
 
           <div className={classes.formActions}>
             <Button onClick={this.handleUpdate.bind(this)}>Save Text</Button>
@@ -171,6 +204,11 @@ class NotebookDetailsModal extends React.Component {
     );
   }
 }
+
+// defaultTime: PropTypes.number,
+//   onProgress: React.PropTypes.func.isRequired,
+//   onTimeUpdate: React.PropTypes.func.isRequired,
+//   onEnd: React.PropTypes.func.isRequired
 
 
 const mapStateToProps = state => {
