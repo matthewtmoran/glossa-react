@@ -14,7 +14,13 @@ const showModal = () => ({
 
 const hideModal = () => ({
   type: types.HIDE_MODAL,
-  modalType: types.MODAL_TYPE,
+  modalType: types.NOTEBOOK_MODAL,
+  payload: null
+});
+
+const showAttachmentModal = () => ({
+  type: types.ATTACHMENT_MODAL,
+  modalType: types.ATTACHMENT_MODAL,
   payload: null
 });
 

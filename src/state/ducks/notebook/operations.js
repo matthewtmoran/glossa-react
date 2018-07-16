@@ -19,7 +19,6 @@ import { create as createImageAction } from "../image/actions";
 
 const {
   fetchNotebooksAPI,
-  updateNotebookAPI,
   removeNotebookAPI,
   updateOrCreateNotebookAPI,
   createImageAPI,

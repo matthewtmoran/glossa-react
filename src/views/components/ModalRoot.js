@@ -1,30 +1,31 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import Modal from 'material-ui/Modal';
+import React from "react";
+import { connect } from "react-redux";
+import Modal from "material-ui/Modal";
 
-import {MODAL_TYPE} from '../../state/ducks/ui/types';
-import NotebookDetailsModal from './notebook/NotebookDetailsModal';
-import {notebookOperations} from '../../state/ducks/notebook/index';
+import { NOTEBOOK_MODAL, ATTACHMENT_MODAL } from "../../state/ducks/ui/types";
+import NotebookDetailsModal from "./notebook/NotebookDetailsModal";
+import AttachmentModal from "./modals/AttachmentModal";
 
 const MODAL_COMPONENTS = {};
-MODAL_COMPONENTS[`${MODAL_TYPE}`] = NotebookDetailsModal;
+MODAL_COMPONENTS[`${NOTEBOOK_MODAL}`] = NotebookDetailsModal;
+MODAL_COMPONENTS[`${ATTACHMENT_MODAL}`] = AttachmentModal;
 
 function getModalStyle() {
   return {
-    position: 'absolute',
-    width: '80%',
-    minHeight: '800px',
+    position: "absolute",
+    width: "80%",
+    minHeight: "800px",
     top: `50%`,
     left: `50%`,
     transform: `translate(-50%, -50%)`,
-    backgroundColor: '#fff',
-    boxShadow: '0 5px 15px rgba(0, 0, 0, .5)',
-    display: 'flex',
-    flexDirection: 'column',
+    backgroundColor: "#fff",
+    boxShadow: "0 5px 15px rgba(0, 0, 0, .5)",
+    display: "flex",
+    flexDirection: "column"
   };
 }
 
-const ModalRoot = ({modalType, modalProps, update}) => {
+const ModalRoot = ({ modalType, modalProps, update }) => {
   if (!modalType) {
     return null; // after React v15 you can return null here
   }
@@ -34,7 +35,8 @@ const ModalRoot = ({modalType, modalProps, update}) => {
       open={true}
       disableBackdropClick={true}
       aria-labelledby="simple-modal-title"
-      aria-describedby="simple-modal-description">
+      aria-describedby="simple-modal-description"
+    >
       <div style={getModalStyle()}>
         <SpecificModal {...modalProps} />
       </div>
@@ -45,7 +47,7 @@ const ModalRoot = ({modalType, modalProps, update}) => {
 const mapStateToProps = state => {
   return {
     modalType: state.ui.modal.modalType,
-    modalProps: state.ui.modal.modalProps,
+    modalProps: state.ui.modal.modalProps
   };
 };
 

@@ -1,63 +1,65 @@
-import React from 'react';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-import Transcriptions from '../../components/transcription/Transcriptions';
-import {transcriptionOperations} from '../../../state/ducks/transcription/index';
-import CenteredTabs from '../../components/tabs';
-import CircularIndeterminate from '../../components/ProgressCircle';
+import { ATTACHMENT_MODAL } from "../../../state/ducks/ui/types";
 
-import {withStyles} from 'material-ui/styles';
-import Button from 'material-ui/Button';
-import AddIcon from 'material-ui-icons/Add';
+import Transcriptions from "../../components/transcription/Transcriptions";
+import { transcriptionOperations } from "../../../state/ducks/transcription/index";
+import CenteredTabs from "../../components/tabs";
+import CircularIndeterminate from "../../components/ProgressCircle";
+
+import { withStyles } from "material-ui/styles";
+import Button from "material-ui/Button";
+import AddIcon from "material-ui-icons/Add";
 
 const styles = theme => ({
   flex: {
     flex: 1,
-    boxSizing: 'border-box',
+    boxSizing: "border-box"
   },
   layoutColumn: {
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column"
   },
   layoutRow: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row"
   },
   CorpusContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    flex: 1
   },
   Corpus: {
-    flexDirection: 'row',
-    display: 'flex',
-    height: '100%',
-    flex: 1,
+    flexDirection: "row",
+    display: "flex",
+    height: "100%",
+    flex: 1
   },
   Sidebar: {
-    display: 'flex',
-    position: 'relative',
-    flexDirection: 'column',
-    minHeight: '100%',
+    display: "flex",
+    position: "relative",
+    flexDirection: "column",
+    minHeight: "100%",
     zIndex: 1101,
-    width: '20%',
+    width: "20%",
     minWidth: 200,
     boxShadow:
-      'rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px',
+      "rgba(0, 0, 0, 0.16) 0px 3px 10px, rgba(0, 0, 0, 0.23) 0px 3px 10px"
   },
   button: {
     margin: theme.spacing.unit,
-    position: 'absolute',
+    position: "absolute",
     bottom: theme.spacing.unit * 2,
-    right: theme.spacing.unit * 2,
-  },
+    right: theme.spacing.unit * 2
+  }
 });
 
 let untitledTranscription = {
-  title: 'Untitled',
-  desc: null,
+  title: "Untitled",
+  desc: null
 };
 
 class Corpus extends React.Component {
@@ -83,6 +85,13 @@ class Corpus extends React.Component {
     this.authTab = i;
   }
 
+  openModal() {
+    this.props.showModal({
+      modalType: ATTACHMENT_MODAL,
+      modalProps: {}
+    });
+  }
+
   render() {
     const {
       classes,
@@ -91,13 +100,13 @@ class Corpus extends React.Component {
       selectedTranscription,
       createTranscription,
       update,
-      isFetching,
+      isFetching
     } = this.props;
 
     let filteredTranscriptions = transcriptions.filter(
       (t, i) =>
-        searchTerm === '' ||
-        t.title.toLowerCase().includes(searchTerm.toLowerCase()),
+        searchTerm === "" ||
+        t.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     if (selectedTranscription) {
@@ -129,7 +138,8 @@ class Corpus extends React.Component {
               mini
               color="primary"
               aria-label="add"
-              className={classes.button}>
+              className={classes.button}
+            >
               <AddIcon />
             </Button>
           </div>
@@ -152,7 +162,7 @@ Corpus.propTypes = {
   notebooks: PropTypes.array,
   searchTerm: PropTypes.string,
   select: PropTypes.func,
-  update: PropTypes.func,
+  update: PropTypes.func
 };
 
 const mapStateToProps = state => {
@@ -161,7 +171,7 @@ const mapStateToProps = state => {
     selectedTranscription: state.entities.transcriptions.details,
     notebooks: state.entities.notebooks.list,
     searchTerm: state.search.searchTerm,
-    isFetching: state.entities.transcriptions.request.isFetching,
+    isFetching: state.entities.transcriptions.request.isFetching
   };
 };
 
@@ -172,11 +182,14 @@ const mapDispatchToProps = dispatch =>
       update: t => transcriptionOperations.updateTranscription(t),
       remove: (t, n) => transcriptionOperations.removeTranscription(t, n),
       createTranscription: t => transcriptionOperations.createTranscription(t),
-      fetchTranscriptions: () => transcriptionOperations.fetchTranscriptions(),
+      fetchTranscriptions: () => transcriptionOperations.fetchTranscriptions()
     },
-    dispatch,
+    dispatch
   );
 
-Corpus = connect(mapStateToProps, mapDispatchToProps)(Corpus);
+Corpus = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Corpus);
 
 export default withStyles(styles)(Corpus);

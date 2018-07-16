@@ -170,6 +170,13 @@ class NotebookDetailsModal extends React.Component {
     this.props.update(this.state);
   }
 
+  onTimeUpdate(data) {
+    console.log("onTimeUpdate", data);
+  }
+  onProgress(data) {
+    console.log("onProgress", data);
+  }
+
   render() {
     const { notebook, image, classes, request, deselectAndModal } = this.props;
     return (
@@ -226,8 +233,9 @@ const mapDispatchToProps = {
   showImagePreview: notebookOperations.showImage
 };
 
-NotebookDetailsModal = connect(mapStateToProps, mapDispatchToProps)(
-  NotebookDetailsModal
-);
+NotebookDetailsModal = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NotebookDetailsModal);
 
 export default withStyles(styles)(NotebookDetailsModal);

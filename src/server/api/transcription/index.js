@@ -8,7 +8,6 @@ const {
   create,
   remove,
   update,
-  updateOrCreate
 } = TranscriptionPouch;
 
 const fetchTranscriptionsAPI = () => {

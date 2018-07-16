@@ -22,6 +22,7 @@ const initialState = {
 const modalReducer = (state = initialState, action) => {
   switch(action.type) {
     case types.SHOW_MODAL: {
+      console.log('action.modalType', action.modalType);
       return {
         ...state,
         modalType: action.modalType,
