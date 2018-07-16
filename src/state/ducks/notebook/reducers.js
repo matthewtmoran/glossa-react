@@ -1,80 +1,59 @@
 import { combineReducers } from "redux";
 import * as types from "./types";
+import { merge } from "lodash";
 
-
-/* State Shape
- {
- id: string,
- title: string
- }
- */
-
-
-const defaultAPIState = {
-  requesting: false,
-  failed: false,
-};
-
-const apiReducer = (state = defaultAPIState, action) => {
+const byId = (state = {}, action) => {
   switch (action.type) {
-    case types.API_REQUESTING : {
+    case types.RECEIVED: {
       return {
         ...state,
-        requesting: action.payload
-      }
+        ...action.notebooks.reduce((obj, notebook) => {
+          obj[notebook._id] = notebook;
+          return obj;
+        }, {})
+      };
     }
-    case types.API_COMPLETE: {
-      return {
-        ...state,
-        requesting: action.payload
-      }
-    }
-    case types.API_FAILED: {
-      return {...action.payload};
-    }
-    default: {
-      return state
-    }
-  }
-};
-
-const listReducer = (state = [], action) => {
-  switch (action.type) {
-    case types.ALL: {
-      return action.payload
-    }
-    case types.CREATE: {
-      return [
-        action.payload,
-        ...state,
-      ]
-    }
+    case types.CREATE:
     case types.UPDATE: {
-      return state.map((item) => {
-        if (item._id !== action.payload._id) {
-          return item;
-        }
-        return {
-          ...item,
-          ...action.payload
-        };
-      })
+      return {
+        ...state,
+        [action.notebook._id]: Object.assign({}, action.notebook)
+      };
     }
-    case types.REMOVE: {
-      return state.filter(d => d._id !== action.payload.id);
-    }
+    // case types.REMOVE: {
+    //   return state.filter(d => d._id !== action.payload.id);
+    // }
     default:
       return state;
   }
 };
 
-const detailsReducer = (state = null , action) => {
+const visibleIds = (state = [], action) => {
+  switch (action.type) {
+    case types.REMOVE:
+      console.log("state", state);
+      console.log("action", action);
+
+      return state.filter(id => id !== action.id);
+    case types.CREATE:
+      if (state.indexOf(action.notebook._id) !== -1) {
+        return state;
+      }
+      return [...state, action.notebook._id];
+    case types.RECEIVED:
+      return action.notebooks.map(notebook => notebook._id);
+    default:
+      return state;
+  }
+};
+
+const detailsReducer = (state = null, action) => {
   switch (action.type) {
     case types.SELECT: {
-      return action.payload.notebook
+      return action.id;
     }
     case types.DESELECT: {
-      return action.payload
+      return action.id;
     }
     default:
       return state;
@@ -82,7 +61,7 @@ const detailsReducer = (state = null , action) => {
 };
 
 const imageReducer = (state = null, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case types.SHOW: {
       const returnObj = {
         ...state,
@@ -98,17 +77,28 @@ const imageReducer = (state = null, action) => {
   }
 };
 
-const uploadReducer = (state = null, action) => {
+// function cacheReducer(state = null, action) {
+//   switch (action.type) {
+//     case types.CACHE_NOTEBOOK: {
+//       return action.payload;
+//     }
+//     case types.CLEAR_CACHE: {
+//       return action.payload;
+//     }
+//     default:
+//       return state;
+//   }
+// }
 
-};
+// const reducer = combineReducers({
+//   notebooks: listReducer,
+//   details: detailsReducer,
+// });
 
-const reducer = combineReducers( {
-  list: listReducer,
-  details: detailsReducer,
-  request: apiReducer,
-  imagePreview: imageReducer,
-  // upload: uploadReducer
+export default combineReducers({
+  byId,
+  visibleIds,
+  details: detailsReducer
+  // request: apiReducer
+  // cached: cacheReducer
 });
-
-export default reducer
-

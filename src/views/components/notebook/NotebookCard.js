@@ -1,51 +1,54 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import { withStyles } from 'material-ui/styles';
-import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
-import Avatar from 'material-ui/Avatar';
-import IconButton from 'material-ui/IconButton';
-import Typography from 'material-ui/Typography';
-import red from 'material-ui/colors/red';
-import MoreVertIcon from 'material-ui-icons/MoreVert';
-import DeleteIcon from 'material-ui-icons/Delete';
-import OpenInNewIcon from 'material-ui-icons/OpenInNew';
+import { withStyles } from "material-ui/styles";
+import Card, {
+  CardHeader,
+  CardMedia,
+  CardContent,
+  CardActions
+} from "material-ui/Card";
+import Avatar from "material-ui/Avatar";
+import IconButton from "material-ui/IconButton";
+import Typography from "material-ui/Typography";
+import red from "material-ui/colors/red";
+import MoreVertIcon from "material-ui-icons/MoreVert";
+import DeleteIcon from "material-ui-icons/Delete";
+import OpenInNewIcon from "material-ui-icons/OpenInNew";
 
 const styles = theme => ({
   card: {
-    maxWidth: 400,
+    maxWidth: 400
   },
   media: {
-    height: 194,
+    height: 194
   },
   expand: {
-    transform: 'rotate(0deg)',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
+    transform: "rotate(0deg)",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest
+    })
   },
   expandOpen: {
-    transform: 'rotate(180deg)',
+    transform: "rotate(180deg)"
   },
   avatar: {
-    backgroundColor: red[500],
+    backgroundColor: red[500]
   },
   flexGrow: {
-    flex: '1 1 auto',
-  },
+    flex: "1 1 auto"
+  }
 });
 
 class NotebookCard extends React.Component {
-  handleOpen(event) {
-    this.props.selectAndModal(this.props.notebook);
-  }
-
-  handleRemove() {
-    this.props.removeNotebook(this.props.notebook._id)
-  }
-
   render() {
-    const { classes, notebook } = this.props;
+    const {
+      classes,
+      notebook,
+      image,
+      selectAndModal,
+      removeNotebook
+    } = this.props;
     return (
       <div>
         <Card className={classes.card}>
@@ -63,29 +66,27 @@ class NotebookCard extends React.Component {
             title={notebook.title}
             subheader={notebook.createdAt}
           />
-          {!!notebook.image &&
+          {!!image && (
             <CardMedia
               className={classes.media}
-              image={`image/${notebook.image.filename}`}/>
-          }
+              image={`image/${image.filename}`}
+            />
+          )}
           <pre>{notebook.image && notebook.image.path}</pre>
           <CardContent>
-            <Typography component="p">
-              {notebook.desc}
-            </Typography>
+            <Typography component="p">{notebook.desc}</Typography>
           </CardContent>
 
           <CardActions disableActionSpacing>
-            <IconButton onClick={this.handleRemove.bind(this)}>
-              <DeleteIcon aria-label="Delete"/>
+            <IconButton onClick={() => removeNotebook(notebook)}>
+              <DeleteIcon aria-label="Delete" />
             </IconButton>
 
             <div className={classes.flexGrow} />
 
-            <IconButton onClick={this.handleOpen.bind(this)}>
-              <OpenInNewIcon aria-label="Open"/>
+            <IconButton onClick={() => selectAndModal(notebook._id)}>
+              <OpenInNewIcon aria-label="Open" />
             </IconButton>
-
           </CardActions>
         </Card>
       </div>
@@ -95,7 +96,7 @@ class NotebookCard extends React.Component {
 
 NotebookCard.propTypes = {
   notebook: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(NotebookCard);

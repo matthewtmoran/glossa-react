@@ -5,9 +5,9 @@
 // THIS IS NOT THE EXPRESS API
 // THIS CALLS THE API
 
-const fetchNotebooksAPI = () => {
+const fetchImagesAPI = () => {
   return new Promise((resolve, reject) => {
-    fetch(`/api/notebook`)
+    fetch(`/api/image`)
       .then(response => {
         if (response.status >= 400) {
           throw new Error("Bad response from server");
@@ -23,10 +23,10 @@ const fetchNotebooksAPI = () => {
   });
 };
 
-const updateNotebookAPI = notebook => {
-  fetch(`/api/notebook`, {
+const updateImageAPI = image => {
+  fetch(`/api/image`, {
     method: "PUT",
-    body: JSON.stringify(notebook)
+    body: JSON.stringify(image)
   })
     .then(response => {
       if (response.status >= 400) {
@@ -35,18 +35,33 @@ const updateNotebookAPI = notebook => {
       return response.json();
     })
     .then(data => {
-      if (!notebook._rev) {
+      if (!image._rev) {
       } else {
       }
     })
     .catch(reason => {});
 };
 
-const createNotebookAPI = () => {};
-
-const removeNotebookAPI = notebook => {
+const createImageAPI = image => {
+  console.log("createImageAPI");
   return new Promise((resolve, reject) => {
-    fetch(`/api/notebook/${notebook._id}`, {
+    let formData = new FormData();
+    formData.append("file", image);
+    fetch("/api/image", {
+      method: "POST",
+      body: formData
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(data => resolve(data))
+      .catch(reason => reject(reason));
+  });
+};
+
+const removeImageAPI = id => {
+  return new Promise((resolve, reject) => {
+    fetch(`/api/image/${id}`, {
       method: "DELETE"
     })
       .then(response => {
@@ -60,12 +75,16 @@ const removeNotebookAPI = notebook => {
   });
 };
 
-function updateOrCreateNotebookAPI(notebook) {
-  console.log("updateOrCreateNotebookAPI ", notebook);
+const updateOrCreateImageAPI = image => {
+  console.log("updateOrCreateImageAPI ");
   return new Promise((resolve, reject) => {
-    fetch(`/api/notebook`, {
+    let imageFile = image.image && image.image.file ? image.image.file : null;
+
+    let formData = new FormData();
+    formData.append("file", imageFile ? imageFile : null);
+    fetch(`/api/image`, {
       method: "PUT",
-      body: JSON.stringify(notebook)
+      body: formData
     })
       .then(response => {
         if (response.status >= 400) {
@@ -80,12 +99,12 @@ function updateOrCreateNotebookAPI(notebook) {
         reject(reason);
       });
   });
-}
+};
 
 export {
-  fetchNotebooksAPI,
-  updateNotebookAPI,
-  createNotebookAPI,
-  removeNotebookAPI,
-  updateOrCreateNotebookAPI
+  fetchImagesAPI,
+  updateImageAPI,
+  createImageAPI,
+  removeImageAPI,
+  updateOrCreateImageAPI
 };

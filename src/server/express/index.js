@@ -6,6 +6,7 @@ const path = require('path');
 
 const transcriptionAPI = require('./api/transcription');
 const notebookAPI = require('./api/notebook');
+const imageAPI = require('./api/image');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -21,6 +22,7 @@ app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:htt
 console.log('image api path static', path.join(storagePath, 'image'));
 app.use('/api/transcription', transcriptionAPI);
 app.use('/api/notebook', notebookAPI);
+app.use('/api/image', imageAPI);
 
 
 app.listen(PORT, function () {

@@ -6,14 +6,13 @@ import FileUploadIcon from 'material-ui-icons/FileUpload';
 const styles = theme => ({
   buttons: {
     display: 'block',
-    margin: '25px auto'
-  }
+    margin: '25px auto',
+  },
 });
 
 class ImageUpload extends React.Component {
   handleButtonClick() {
     console.log('handleButtonClick');
-
   }
 
   handleImageChange(e) {
@@ -23,31 +22,40 @@ class ImageUpload extends React.Component {
     reader.onloadend = () => {
       this.props.showImagePreview({
         file: file,
-        path: reader.result
-      })
+        path: reader.result,
+      });
     };
   }
 
   render() {
     const {classes} = this.props;
     return (
-      <Button className={classes.buttons}
-              raised
-              component="label"
-              onClick={this.handleButtonClick}
-              label='My Label'>Upload Image
-        <FileUploadIcon/>
+      <Button
+        className={classes.buttons}
+        variant="raised"
+        component="label"
+        onClick={this.handleButtonClick}
+        label="My Label">
+        Upload Image
+        <FileUploadIcon />
         <input
-          onChange={e => this.handleImageChange(e) }
+          onChange={e => this.props.onImageSelect(e.target.files[0])}
           style={{display: 'none'}}
           type="file"
           accept="image/*"
           multiple={false}
         />
       </Button>
-    )
+    );
   }
 }
 
+// <input
+//   onChange={e => this.handleImageChange(e) }
+//   style={{display: 'none'}}
+//   type="file"
+//   accept="image/*"
+//   multiple={false}
+// />
 
 export default withStyles(styles)(ImageUpload);

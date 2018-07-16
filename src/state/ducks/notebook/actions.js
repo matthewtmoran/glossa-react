@@ -1,17 +1,13 @@
-import * as types from './types';
+import * as types from "./types";
 
-const create = ( notebook ) => ({
+const create = notebook => ({
   type: types.CREATE,
-  payload: {
-    ...notebook
-  }
+  notebook
 });
 
-const remove = ( notebook ) => ({
+const remove = id => ({
   type: types.REMOVE,
-  payload: {
-    ...notebook
-  }
+  id
 });
 
 // const update = ( notebook ) => ({
@@ -20,52 +16,36 @@ const remove = ( notebook ) => ({
 //     ...notebook
 //   }
 // });
-const update = ( notebook ) => {
-  return {
-    type: types.UPDATE,
-    payload: {
-      ...notebook
-    }
-  }
-};
+const update = notebook => ({
+  type: types.UPDATE,
+  notebook
+});
 
+export const saveNotebook = () => ({
+  type: types.SAVE
+});
 
-const selectNotebook = (notebook) => ({
+const selectNotebook = id => ({
   type: types.SELECT,
-  payload: {
-    notebook: notebook || null
-  }
+  id
 });
 
 const deSelect = () => ({
   type: types.DESELECT,
-  payload: null
+  id: null
 });
 
-const apiRequest = () => ({
-  type: types.API_REQUESTING,
-  payload: true
+export const requestNotebooks = () => ({
+  type: types.REQUEST
+  // payload: [...data]
 });
 
-const apiComplete = () => ({
-  type: types.API_COMPLETE,
-  payload: false
+export const receivedNotebooks = notebooks => ({
+  type: types.RECEIVED,
+  notebooks
 });
 
-const apiFail = () => ({
-  type: types.API_FAILED,
-  payload: {
-    failed: true,
-    requesting: false,
-  }
-});
-
-const allNotebooks = (data) => ({
-  type: types.ALL,
-  payload: data
-});
-
-const showImage = (data) => ({
+const showImage = data => ({
   type: types.SHOW,
   payload: data
 });
@@ -75,17 +55,15 @@ const hideImage = () => ({
   payload: null
 });
 
-const uploadSuccess = (data) => ({
+const uploadSuccess = data => ({
   type: types.UPLOAD_SUCCESS,
-  payload: {...data}
+  payload: { ...data }
 });
 
-const uploadFailed = (error) => ({
+const uploadFailed = error => ({
   type: types.UPLOAD_FAIL,
-  payload: {...error}
+  payload: { ...error }
 });
-
-
 
 export {
   create,
@@ -93,10 +71,6 @@ export {
   update,
   selectNotebook,
   deSelect,
-  apiRequest,
-  apiComplete,
-  apiFail,
-  allNotebooks,
   showImage,
   hideImage
-}
+};

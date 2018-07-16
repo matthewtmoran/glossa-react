@@ -1,25 +1,18 @@
-import {toggleDrawer, hideModal, showModal} from "./actions";
-import {selectNotebook, deSelect} from "../notebook/actions";
+import { toggleDrawer, hideModal, showModal } from "./actions";
+import { selectNotebook, deSelect } from "../notebook/actions";
 
-const selectAndModal = (notebook) => {
-  return (dispatch) => {
-    dispatch(selectNotebook(notebook));
+const selectAndModal = id => {
+  return dispatch => {
+    dispatch(selectNotebook(id));
     dispatch(showModal());
-  }
+  };
 };
 
 const deselectAndModal = () => {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(deSelect());
     dispatch(hideModal());
-  }
+  };
 };
 
-
-export {
-  toggleDrawer,
-  hideModal,
-  showModal,
-  selectAndModal,
-  deselectAndModal
-};
+export { toggleDrawer, hideModal, showModal, selectAndModal, deselectAndModal };
